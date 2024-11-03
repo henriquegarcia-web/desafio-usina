@@ -1,6 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
-import { SignInScreen, SignUpScreen, LibraryScreen } from '@/screens'
+import {
+  SignInScreen,
+  SignUpScreen,
+  LibraryScreen,
+  MovieScreen
+} from '@/screens'
 
 const AppRoutes = () => {
   const isAuthenticated = true
@@ -38,6 +43,15 @@ const AppRoutes = () => {
           element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
               <LibraryScreen />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/biblioteca/:movie_id"
+          element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <MovieScreen />
             </PrivateRoute>
           }
         />
