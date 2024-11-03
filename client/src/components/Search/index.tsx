@@ -1,5 +1,4 @@
 import * as S from './styles'
-
 import { FiSearch } from 'react-icons/fi'
 
 interface ISearch {}
