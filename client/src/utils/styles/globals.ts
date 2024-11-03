@@ -3,11 +3,15 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { ThemeDefault } from './colors'
 import { FontsDefault } from './fonts'
 
-export const responsiveDesktop = '1000px'
-export const responsiveTablet = '760px'
-export const responsiveMobile = '500px'
+export const Breakpoints = {
+  desktop: '1000px',
+  tablet: '760px',
+  mobile: '500px'
+}
 
-export const headerHeight = '70px'
+export const Sizes = {
+  headerHeight: '70px'
+}
 
 export const Colors = ThemeDefault
 export const Fonts = FontsDefault
