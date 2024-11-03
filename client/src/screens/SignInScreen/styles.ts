@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import { Screen } from '@/utils/styles/globals'
 
-export const TemplateScreen = styled(Screen)`
+export const SignInScreen = styled(Screen)`
   display: flex;
 `
 
-// export const OtherTemplateScreen = styled.div`
+// export const OtherSignInScreen = styled.div`
 //   display: flex;
 // `

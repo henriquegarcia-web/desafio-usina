@@ -2,9 +2,9 @@ import * as S from './styles'
 
 // import { useGetTemplate } from '@/hooks/data/useGetTemplate'
 
-interface ITemplateScreen {}
+interface ISignUpScreen {}
 
-const TemplateScreen = ({}: ITemplateScreen) => {
+const SignUpScreen = ({}: ISignUpScreen) => {
   // const {
   //   data: dataTemplate,
   //   error: errorTemplate,
@@ -12,7 +12,7 @@ const TemplateScreen = ({}: ITemplateScreen) => {
   //   isLoading
   // } = useGetTemplate()
 
-  return <S.TemplateScreen></S.TemplateScreen>
+  return <S.SignUpScreen></S.SignUpScreen>
 }
 
-export default TemplateScreen
+export default SignUpScreen
