@@ -1,13 +1,16 @@
 import styled, { createGlobalStyle } from 'styled-components'
 
-import Colors from './colors'
-// import Fonts from "../styles/fonts";
+import { ThemeDefault } from './colors'
+import { FontsDefault } from './fonts'
 
 export const responsiveDesktop = '1000px'
 export const responsiveTablet = '760px'
 export const responsiveMobile = '500px'
 
-export const clientHeaderHeight = '70px'
+export const headerHeight = '70px'
+
+export const Colors = ThemeDefault
+export const Fonts = FontsDefault
 
 const GlobalStyle = createGlobalStyle`
   :root {

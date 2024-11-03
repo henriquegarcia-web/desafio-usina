@@ -1,4 +1,4 @@
-const Fonts = {
+const FontsDefault = {
   xsss: '0.75rem',
   xss: '0.813rem',
   xs: '0.875rem',
@@ -14,4 +14,4 @@ const Fonts = {
   logoDefault: '2.4rem'
 }
 
-export default Fonts
+export { FontsDefault }
