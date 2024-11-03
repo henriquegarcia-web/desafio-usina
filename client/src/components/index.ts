@@ -1,3 +1,3 @@
-import TemplateComponent from './TemplateComponent'
+import Header from './Header'
 
-export { TemplateComponent }
+export { Header }
