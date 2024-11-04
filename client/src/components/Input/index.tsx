@@ -7,10 +7,23 @@ interface IInput {
   type: string
   placeholder: string
   value?: string | number
+  hasError?: boolean
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Input = forwardRef<HTMLInputElement, IInput>(
-  ({ mode = 'default', type, placeholder, value = '', ...props }, ref) => {
+  (
+    {
+      mode = 'default',
+      type,
+      placeholder,
+      value = '',
+      hasError = false,
+      onChange,
+      ...props
+    },
+    ref
+  ) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const togglePasswordVisibility = () => {
@@ -36,6 +49,8 @@ const Input = forwardRef<HTMLInputElement, IInput>(
           }
           placeholder={placeholder}
           value={value}
+          onChange={onChange}
+          className={hasError ? 'error' : ''}
           {...props}
         />
 

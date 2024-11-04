@@ -31,6 +31,10 @@ export const Input = styled.input`
     appearance: none;
     margin: 0;
   }
+
+  &.error {
+    border: 1px solid ${Colors.error};
+  }
 `
 
 export const Icon = styled.div`

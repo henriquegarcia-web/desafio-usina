@@ -25,7 +25,9 @@ const ThemeDefault = {
   inputBgContrast: 'rgb(60, 60, 60)',
 
   scrollbarTrack: 'rgb(30, 30, 30)',
-  scrollbarThumb: 'rgb(70, 70, 70)'
+  scrollbarThumb: 'rgb(70, 70, 70)',
+
+  error: 'rgb(255, 0, 0)'
 }
 
 export { ThemeDefault }

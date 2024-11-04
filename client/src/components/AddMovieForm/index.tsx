@@ -27,8 +27,8 @@ const addMovieSchema = Yup.object().shape({
   movieTitle: Yup.string().required(),
   movieDescription: Yup.string().required(),
   movieGenre: Yup.string().required(),
-  movieReleaseYear: Yup.number().required(),
-  movieDuration: Yup.number().required()
+  movieReleaseYear: Yup.number().required().min(0).max(9999),
+  movieDuration: Yup.number().required().min(0).max(999)
 })
 
 const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
@@ -42,6 +42,16 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
   const handleSelectGenre = (genre: string) => {
     setValue('movieGenre', genre)
   }
+
+  // const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value.replace(/\D/g, '').slice(0, 4)
+  //   setValue('movieReleaseYear', parseInt(value, 10) || 0)
+  // }
+
+  // const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value.replace(/\D/g, '').slice(0, 3)
+  //   setValue('movieDuration', parseInt(value, 10) || 0)
+  // }
 
   return (
     <S.SaveMovieForm onSubmit={handleSubmit(onSubmit)}>
@@ -94,8 +104,19 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
             name="movieReleaseYear"
             control={control}
             rules={{ required: 'Este campo é obrigatório' }}
-            render={({ field }) => (
-              <Input {...field} type="number" placeholder="Ano de lançamento" />
+            render={({ field, fieldState }) => (
+              <Input
+                {...field}
+                type="number"
+                placeholder="Ano de lançamento"
+                hasError={!!fieldState.error}
+                onChange={(e) => {
+                  const value = e.target.value
+                  if (/^\d{0,4}$/.test(value)) {
+                    field.onChange(value)
+                  }
+                }}
+              />
             )}
           />
         </S.FormInput>
@@ -106,11 +127,18 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
             name="movieDuration"
             control={control}
             rules={{ required: 'Este campo é obrigatório' }}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <Input
                 {...field}
                 type="number"
                 placeholder="Duração em minutos"
+                hasError={!!fieldState.error}
+                onChange={(e) => {
+                  const value = e.target.value
+                  if (/^\d{0,3}$/.test(value)) {
+                    field.onChange(value)
+                  }
+                }}
               />
             )}
           />
