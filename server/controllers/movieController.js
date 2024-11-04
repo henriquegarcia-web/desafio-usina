@@ -10,13 +10,19 @@ const movieController = {
     res.json(movie)
   },
   async createMovie(req, res) {
-    const { title, genre, year } = req.body
-    const movie = await Movie.createMovie(title, genre, year)
+    const { title, genre, year, duration } = req.body
+    const movie = await Movie.createMovie(title, genre, year, duration)
     res.json(movie)
   },
   async updateMovie(req, res) {
     const { title, genre, year } = req.body
-    const movie = await Movie.updateMovie(req.params.id, title, genre, year)
+    const movie = await Movie.updateMovie(
+      req.params.id,
+      title,
+      genre,
+      year,
+      duration
+    )
     res.json(movie)
   },
   async deleteMovie(req, res) {

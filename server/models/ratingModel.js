@@ -1,10 +1,10 @@
 const pool = require('../config/database')
 
 const Rating = {
-  async addRating(userId, movieId, stars) {
+  async addRating(userId, movieId, rating, review) {
     const result = await pool.query(
-      'INSERT INTO ratings (user_id, movie_id, stars) VALUES ($1, $2, $3) RETURNING *',
-      [userId, movieId, stars]
+      'INSERT INTO ratings (user_id, movie_id, rating, review) VALUES ($1, $2, $3, $4) RETURNING *',
+      [userId, movieId, rating, review]
     )
     return result.rows[0]
   },

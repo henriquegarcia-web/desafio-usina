@@ -43,16 +43,6 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
     setValue('movieGenre', genre)
   }
 
-  // const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value.replace(/\D/g, '').slice(0, 4)
-  //   setValue('movieReleaseYear', parseInt(value, 10) || 0)
-  // }
-
-  // const handleDurationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value.replace(/\D/g, '').slice(0, 3)
-  //   setValue('movieDuration', parseInt(value, 10) || 0)
-  // }
-
   return (
     <S.SaveMovieForm onSubmit={handleSubmit(onSubmit)}>
       <S.FormInputsWrapper>
