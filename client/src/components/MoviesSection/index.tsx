@@ -85,15 +85,24 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
         handleClose={handleCloseModal}
       >
         <S.SaveMovieForm>
-          <S.FormInput>
-            <S.FormInputHeader>Título</S.FormInputHeader>
-            <SearchTmdb />
-          </S.FormInput>
+          <S.FormInputsWrapper>
+            <S.FormInputsContainer>
+              <S.FormInput>
+                <S.FormInputHeader>Título</S.FormInputHeader>
+                <SearchTmdb />
+              </S.FormInput>
 
-          <S.FormInput>
-            <S.FormInputHeader>Descrição</S.FormInputHeader>
-            <TextArea placeholder="Descriação do filme" />
-          </S.FormInput>
+              <S.FormInput>
+                <S.FormInputHeader>Descrição</S.FormInputHeader>
+                <TextArea placeholder="Descriação do filme" />
+              </S.FormInput>
+            </S.FormInputsContainer>
+
+            <S.FormInputBanner>
+              <S.FormInputHeader>Capa</S.FormInputHeader>
+              <S.MovieBanner>{/* <img src="" alt="" /> */}</S.MovieBanner>
+            </S.FormInputBanner>
+          </S.FormInputsWrapper>
 
           <S.FormInput>
             <S.FormInputHeader>Gênero</S.FormInputHeader>
