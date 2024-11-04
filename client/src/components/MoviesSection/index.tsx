@@ -26,7 +26,7 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
     isLoading
   } = sectionId === 'saved_movies'
     ? useGetAllMovies()
-    : useGetRecommendedMovies('user_id')
+    : useGetAllMovies()
 
   const handleAddMovieSubmit = (data: any) => {
     console.log('Dados do filme adicionado:', data)
