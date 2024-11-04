@@ -1,6 +1,11 @@
 import * as S from './styles'
-
-import { Dropdown, Input, TextArea, Button, SearchTmdb } from '@/components'
+import {
+  Input,
+  TextArea,
+  Button,
+  SearchTmdb,
+  GenreDropdown
+} from '@/components'
 
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -27,11 +32,16 @@ const addMovieSchema = Yup.object().shape({
 })
 
 const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
-  const { control, handleSubmit, formState } = useForm<IAddMovieFormData>({
-    mode: 'all',
-    resolver: yupResolver(addMovieSchema)
-  })
+  const { control, handleSubmit, setValue, formState } =
+    useForm<IAddMovieFormData>({
+      mode: 'all',
+      resolver: yupResolver(addMovieSchema)
+    })
   const { isValid } = formState
+
+  const handleSelectGenre = (genre: string) => {
+    setValue('movieGenre', genre)
+  }
 
   return (
     <S.SaveMovieForm onSubmit={handleSubmit(onSubmit)}>
@@ -72,7 +82,7 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
           control={control}
           rules={{ required: 'Este campo é obrigatório' }}
           render={({ field }) => (
-            <Dropdown {...field} placeholder="Selecione o gênero" />
+            <GenreDropdown ref={field.ref} onSelectGenre={handleSelectGenre} />
           )}
         />
       </S.FormInput>

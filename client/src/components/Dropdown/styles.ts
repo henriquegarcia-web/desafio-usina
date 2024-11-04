@@ -41,3 +41,11 @@ export const DropdownToggle = styled.button`
     color: ${Colors.font};
   }
 `
+
+export const DropdownList = styled.div`
+  display: flex;
+`
+
+export const DropdownItem = styled.div`
+  display: flex;
+`

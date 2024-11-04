@@ -11,6 +11,7 @@ import TextArea from './TextArea'
 import Dropdown from './Dropdown'
 import Button from './Button'
 import AddMovieForm from './AddMovieForm'
+import GenreDropdown from './GenreDropdown'
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   Dropdown,
   Button,
   AddMovieForm
+  GenreDropdown
 }
