@@ -1,21 +1,36 @@
-import { Controller, useForm } from 'react-hook-form'
-import { Dropdown, Input, TextArea, Button, SearchTmdb } from '@/components'
 import * as S from './styles'
+
+import { Dropdown, Input, TextArea, Button, SearchTmdb } from '@/components'
+
+import * as Yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Controller, useForm } from 'react-hook-form'
 
 interface IAddMovieForm {
   onSubmit: (data: IAddMovieFormData) => void
 }
 
 interface IAddMovieFormData {
-  title: string
-  description: string
-  genre: string
-  releaseYear: number
-  duration: number
+  movieTitle: string
+  movieDescription: string
+  movieGenre: string
+  movieReleaseYear: number
+  movieDuration: number
 }
 
+const addMovieSchema = Yup.object().shape({
+  movieTitle: Yup.string().required(),
+  movieDescription: Yup.string().required(),
+  movieGenre: Yup.string().required(),
+  movieReleaseYear: Yup.number().required(),
+  movieDuration: Yup.number().required()
+})
+
 const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
-  const { control, handleSubmit, formState } = useForm<IAddMovieFormData>()
+  const { control, handleSubmit, formState } = useForm<IAddMovieFormData>({
+    mode: 'all',
+    resolver: yupResolver(addMovieSchema)
+  })
   const { isValid } = formState
 
   return (
@@ -25,7 +40,7 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
           <S.FormInput>
             <S.FormInputHeader>Título</S.FormInputHeader>
             <Controller
-              name="title"
+              name="movieTitle"
               control={control}
               rules={{ required: 'Este campo é obrigatório' }}
               render={({ field }) => <SearchTmdb {...field} />}
@@ -35,7 +50,7 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
           <S.FormInput>
             <S.FormInputHeader>Descrição</S.FormInputHeader>
             <Controller
-              name="description"
+              name="movieDescription"
               control={control}
               render={({ field }) => (
                 <TextArea {...field} placeholder="Descrição do filme" />
@@ -53,9 +68,9 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
       <S.FormInput>
         <S.FormInputHeader>Gênero</S.FormInputHeader>
         <Controller
-          name="genre"
+          name="movieGenre"
           control={control}
-          // rules={{ required: 'Este campo é obrigatório' }}
+          rules={{ required: 'Este campo é obrigatório' }}
           render={({ field }) => (
             <Dropdown {...field} placeholder="Selecione o gênero" />
           )}
@@ -66,7 +81,7 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
         <S.FormInput>
           <S.FormInputHeader>Lançamento</S.FormInputHeader>
           <Controller
-            name="releaseYear"
+            name="movieReleaseYear"
             control={control}
             rules={{ required: 'Este campo é obrigatório' }}
             render={({ field }) => (
@@ -78,7 +93,7 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
         <S.FormInput>
           <S.FormInputHeader>Duração</S.FormInputHeader>
           <Controller
-            name="duration"
+            name="movieDuration"
             control={control}
             rules={{ required: 'Este campo é obrigatório' }}
             render={({ field }) => (
