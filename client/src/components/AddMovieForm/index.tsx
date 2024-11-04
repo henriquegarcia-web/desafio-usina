@@ -55,7 +55,7 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
         <Controller
           name="genre"
           control={control}
-          rules={{ required: 'Este campo é obrigatório' }}
+          // rules={{ required: 'Este campo é obrigatório' }}
           render={({ field }) => (
             <Dropdown {...field} placeholder="Selecione o gênero" />
           )}
