@@ -4,7 +4,8 @@ import {
   getMovieById,
   createMovie,
   updateMovie,
-  deleteMovie
+  deleteMovie,
+  getRecommendedMovies
 } from '@/services/movie'
 
 const useGetAllMovies = () => {
@@ -41,10 +42,19 @@ const useDeleteMovie = () => {
   })
 }
 
+const useGetRecommendedMovies = (userId: string) => {
+  return useQuery({
+    queryKey: ['recommendedMovies', userId],
+    queryFn: async () => getRecommendedMovies(userId),
+    enabled: !!userId
+  })
+}
+
 export {
   useGetAllMovies,
   useGetMovieById,
   useCreateMovie,
   useUpdateMovie,
-  useDeleteMovie
+  useDeleteMovie,
+  useGetRecommendedMovies
 }

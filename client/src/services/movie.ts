@@ -28,4 +28,16 @@ const deleteMovie = async (id: string) => {
   return response.data
 }
 
-export { getAllMovies, getMovieById, createMovie, updateMovie, deleteMovie }
+const getRecommendedMovies = async (userId: string) => {
+  const response = await api.get(`/movies/recommendations/${userId}`)
+  return response.data
+}
+
+export {
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+  getRecommendedMovies
+}

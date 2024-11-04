@@ -22,6 +22,17 @@ const movieController = {
   async deleteMovie(req, res) {
     const movie = await Movie.deleteMovie(req.params.id)
     res.json(movie)
+  },
+
+  async getRecommendedMovies(req, res) {
+    const { userId } = req.params
+    try {
+      const recommendedMovies = await Movie.getRecommendedMovies(userId)
+      res.json(recommendedMovies)
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'Erro ao obter filmes recomendados.' })
+    }
   }
 }
 
