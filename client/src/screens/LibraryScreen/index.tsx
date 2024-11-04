@@ -1,6 +1,6 @@
 import * as S from './styles'
 
-import { Header } from '@/components'
+import { Header, MoviesSection } from '@/components'
 
 // import { useGetTemplate } from '@/hooks/data/useGetTemplate'
 
@@ -17,6 +17,11 @@ const LibraryScreen = ({}: ILibraryScreen) => {
   return (
     <S.LibraryScreen>
       <Header />
+
+      <S.LibraryScreenWrapper>
+        <MoviesSection sectionId="saved_movies" />
+        <MoviesSection sectionId="recommended_movies" />
+      </S.LibraryScreenWrapper>
     </S.LibraryScreen>
   )
 }

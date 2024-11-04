@@ -31,11 +31,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     border: none;
     outline: none;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
     /* font-family: "Montserrat", sans-serif; */
     /* font-family: "Baloo Paaji 2", sans-serif; */
     /* font-family: "Barlow", sans-serif; */
-    /* font-family: "Open Sans", sans-serif; */
+    font-family: "Open Sans", sans-serif;
     text-decoration: none;
     user-select: none;
 
@@ -68,4 +68,13 @@ export const Screen = styled.div`
   width: 100%;
   height: fit-content;
   min-height: 100vh;
+`
+
+export const Card = styled.div`
+  display: flex;
+  width: 120px;
+  height: 160px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
 `

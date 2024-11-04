@@ -3,5 +3,7 @@ import Logo from './Logo'
 import Search from './Search'
 import SearchTmdb from './SearchTmdb'
 import UserMenu from './UserMenu'
+import MoviesSection from './MoviesSection'
+import MovieCard from './MovieCard'
 
-export { Header, Logo, Search, SearchTmdb, UserMenu }
+export { Header, Logo, Search, SearchTmdb, UserMenu, MoviesSection, MovieCard }

@@ -5,10 +5,12 @@ const ThemeDefault = {
   primary: '#FFFFFF',
   secondary: '#000000',
 
-  font: '#FFFFFF',
+  font: 'rgba(255, 255, 255, 0.95)',
+  fontLegend: 'rgba(255, 255, 255, 0.7)',
   fontContrast: '#000000',
 
-  card: '',
+  card: 'rgba(255, 255, 255, 0.04)',
+  cardHover: 'rgba(255, 255, 255, 0.06)',
   container: '',
 
   inputColor: 'rgba(255, 255, 255, 0.8)',
