@@ -14,20 +14,22 @@ const GenreDropdown = forwardRef<HTMLInputElement, IGenreDropdown>(
     if (isLoading) return <p>Carregando gêneros...</p>
     if (error) return <p>Erro ao carregar gêneros.</p>
 
-    const formattedGenres =
-      genres?.map((genre) => ({
-        key: genre.id,
-        value: genre.name
-      })) || []
+    // const formattedGenres =
+    //   genres?.map((genre) => ({
+    //     key: genre.id,
+    //     value: genre.name
+    //   })) || []
+
+    console.log(genres)
 
     return (
       <S.GenreDropdown>
-        <Dropdown
+        {/* <Dropdown
           ref={ref}
           placeholder="Selecione o gênero"
           data={formattedGenres}
           onSelect={onSelectGenre}
-        />
+        /> */}
       </S.GenreDropdown>
     )
   }

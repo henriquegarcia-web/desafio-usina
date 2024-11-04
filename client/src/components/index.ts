@@ -26,6 +26,6 @@ export {
   TextArea,
   Dropdown,
   Button,
-  AddMovieForm
+  AddMovieForm,
   GenreDropdown
 }
