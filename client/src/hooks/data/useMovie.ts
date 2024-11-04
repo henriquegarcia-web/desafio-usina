@@ -1,18 +1,50 @@
-import { useQuery } from '@tanstack/react-query'
-import { fetchTemplate } from '@/services/template'
+import { useQuery, useMutation } from '@tanstack/react-query'
+import {
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  updateMovie,
+  deleteMovie
+} from '@/services/movie'
 
-const useGetSavedMovies = () => {
+const useGetAllMovies = () => {
   return useQuery({
-    queryKey: ['template'],
-    queryFn: async () => fetchTemplate()
+    queryKey: ['movies'],
+    queryFn: async () => getAllMovies()
   })
 }
 
-const useGetRecommendedMovies = () => {
+const useGetMovieById = (id: string) => {
   return useQuery({
-    queryKey: ['template'],
-    queryFn: async () => fetchTemplate()
+    queryKey: ['movie', id],
+    queryFn: async () => getMovieById(id)
   })
 }
 
-export { useGetSavedMovies, useGetRecommendedMovies }
+const useCreateMovie = () => {
+  return useMutation({
+    mutationFn: async (movieData: { title: string; genre: string }) =>
+      createMovie(movieData)
+  })
+}
+
+const useUpdateMovie = () => {
+  return useMutation({
+    mutationFn: async (data: { id: string; movieData: any }) =>
+      updateMovie(data.id, data.movieData)
+  })
+}
+
+const useDeleteMovie = () => {
+  return useMutation({
+    mutationFn: async (id: string) => deleteMovie(id)
+  })
+}
+
+export {
+  useGetAllMovies,
+  useGetMovieById,
+  useCreateMovie,
+  useUpdateMovie,
+  useDeleteMovie
+}

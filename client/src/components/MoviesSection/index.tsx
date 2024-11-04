@@ -5,10 +5,8 @@ import { FiPlus } from 'react-icons/fi'
 
 import { Modal, MovieCard, AddMovieForm } from '@/components'
 
-import {
-  useGetSavedMovies,
-  useGetRecommendedMovies
-} from '@/hooks/data/useMovie'
+import { useGetAllMovies } from '@/hooks/data/useMovie'
+
 import { getHeaderTexts } from '@/utils/functions/getHeaderTexts'
 
 interface IMoviesSection {
@@ -23,10 +21,19 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
 
   const {
     data: moviesData,
+    fetchStatus,
     error,
     isLoading
   } = sectionId === 'saved_movies'
-    ? useGetSavedMovies()
+    ? useGetAllMovies()
+    : useGetRecommendedMovies()
+
+  const {
+    data: genresData,
+    error: genresError,
+    isLoading: genresIsLoading
+  } = sectionId === 'saved_movies'
+    ? useGetAllMovies()
     : useGetRecommendedMovies()
 
   const handleAddMovieSubmit = (data: any) => {
