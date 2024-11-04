@@ -14,6 +14,7 @@ export const ModalBackdrop = styled.div`
   padding: 20px;
 
   background-color: ${Colors.backdrop};
+  backdrop-filter: blur(2px);
 `
 
 export const Modal = styled.div`

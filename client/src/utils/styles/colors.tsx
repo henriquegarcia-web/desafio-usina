@@ -1,31 +1,31 @@
 const ThemeDefault = {
-  background: '#04041e',
-  header: '#000000',
+  background: 'rgb(15, 15, 15)',
+  header: 'rgb(30, 30, 30)',
 
-  backdrop: 'rgba(0, 0, 0, 0.4)',
-  modal: 'rgb(84, 84, 98)',
+  backdrop: 'rgb(45, 45, 45, 0.4)',
+  modal: 'rgb(50, 50, 50)',
 
-  primary: 'rgb(26, 133, 239)',
-  secondary: '#000000',
+  primary: 'rgb(0, 122, 255)',
+  secondary: 'rgb(60, 60, 60)',
 
-  button: 'rgb(26, 133, 239)',
-  buttonHovered: 'rgb(19, 121, 223)',
-  buttonDisabled: 'rgb(95, 95, 95)',
+  button: 'rgb(0, 122, 255)',
+  buttonHovered: 'rgb(0, 105, 223)',
+  buttonDisabled: 'rgb(80, 80, 80)',
 
-  font: 'rgba(255, 255, 255, 0.95)',
-  fontLegend: 'rgba(255, 255, 255, 0.7)',
-  fontContrast: '#000000',
+  font: 'rgb(240, 240, 240)',
+  fontLegend: 'rgb(160, 160, 160)',
+  fontContrast: 'rgb(0, 0, 0)',
 
-  card: 'rgba(255, 255, 255, 0.04)',
-  cardHover: 'rgba(255, 255, 255, 0.06)',
-  container: '',
+  card: 'rgb(25, 25, 25)',
+  cardHover: 'rgb(30, 30, 30)',
+  container: 'rgb(20, 20, 20)',
 
-  inputColor: 'rgba(255, 255, 255, 0.8)',
-  inputBg: 'rgba(255, 255, 255, 0.06)',
-  inputBgContrast: 'rgba(0, 0, 0, 0.4)',
+  inputColor: 'rgb(220, 220, 220)',
+  inputBg: 'rgb(40, 40, 40)',
+  inputBgContrast: 'rgb(60, 60, 60)',
 
-  scrollbarTrack: 'rgba(0, 0, 0, 0.1)',
-  scrollbarThumb: 'rgba(0, 0, 0, 0.4)'
+  scrollbarTrack: 'rgb(30, 30, 30)',
+  scrollbarThumb: 'rgb(70, 70, 70)'
 }
 
 export { ThemeDefault }

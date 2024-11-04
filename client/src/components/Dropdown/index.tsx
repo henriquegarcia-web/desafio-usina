@@ -39,11 +39,19 @@ const Dropdown = forwardRef<HTMLDivElement, IDropdown>(
         </S.DropdownToggle>
         {isDropdownOpen && (
           <S.DropdownList>
-            {data.map((item) => (
-              <S.DropdownItem key={item.key} onClick={() => handleSelect(item)}>
-                {item.value}
-              </S.DropdownItem>
-            ))}
+            {data.map((item) => {
+              const isActive = item.value === selectedData ? 1 : 0
+
+              return (
+                <S.DropdownItem
+                  key={item.key}
+                  active={isActive}
+                  onClick={() => handleSelect(item)}
+                >
+                  {item.value}
+                </S.DropdownItem>
+              )
+            })}
           </S.DropdownList>
         )}
       </S.Dropdown>
