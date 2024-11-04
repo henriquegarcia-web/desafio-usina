@@ -7,6 +7,8 @@ import MoviesSection from './MoviesSection'
 import MovieCard from './MovieCard'
 import Modal from './Modal'
 import Input from './Input'
+import TextArea from './TextArea'
+import Dropdown from './Dropdown'
 
 export {
   Header,
@@ -17,5 +19,7 @@ export {
   MoviesSection,
   MovieCard,
   Modal,
-  Input
+  Input,
+  TextArea,
+  Dropdown
 }

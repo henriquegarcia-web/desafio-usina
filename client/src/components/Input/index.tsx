@@ -3,12 +3,12 @@ import * as S from './styles'
 import { FiEye, FiEyeOff, FiSearch } from 'react-icons/fi'
 
 interface IInput {
-  mode: 'default' | 'password' | 'search'
+  mode?: 'default' | 'password' | 'search'
   type: string
   placeholder: string
 }
 
-const Input = ({ mode, type, placeholder }: IInput) => {
+const Input = ({ mode = 'default', type, placeholder }: IInput) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const togglePasswordVisibility = () => {
@@ -23,7 +23,12 @@ const Input = ({ mode, type, placeholder }: IInput) => {
         </S.Icon>
       )}
 
-      <S.Input type={type} placeholder={placeholder} />
+      <S.Input
+        type={
+          mode === 'password' ? (isPasswordVisible ? 'text' : 'password') : type
+        }
+        placeholder={placeholder}
+      />
 
       {mode === 'password' && (
         <S.PasswordToggle onClick={togglePasswordVisibility}>

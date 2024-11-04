@@ -3,7 +3,14 @@ import { useState } from 'react'
 import * as S from './styles'
 import { FiPlus } from 'react-icons/fi'
 
-import { Modal, MovieCard, SearchTmdb } from '@/components'
+import {
+  Dropdown,
+  Input,
+  TextArea,
+  Modal,
+  MovieCard,
+  SearchTmdb
+} from '@/components'
 
 import {
   useGetSavedMovies,
@@ -70,12 +77,42 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
           </S.MoviesList>
         </S.SectionWrapper>
       </S.MoviesSection>
+
       <Modal
         title="Adicionar filme"
         isOpen={isAddMovieModalOpen}
         handleClose={handleCloseModal}
       >
-        <SearchTmdb />
+        <S.SaveMovieForm>
+          <S.FormInput>
+            <S.FormInputHeader>Título</S.FormInputHeader>
+            <SearchTmdb />
+          </S.FormInput>
+
+          <S.FormInput>
+            <S.FormInputHeader>Descrição</S.FormInputHeader>
+            <TextArea placeholder="Descriação do filme" />
+          </S.FormInput>
+
+          <S.FormInput>
+            <S.FormInputHeader>Gênero</S.FormInputHeader>
+            <Dropdown placeholder="Selecione o gênero" />
+          </S.FormInput>
+
+          <S.FormInputsWrapper>
+            <S.FormInput>
+              <S.FormInputHeader>Lançamento</S.FormInputHeader>
+              <Input type="number" placeholder="Ano de lançamento" />
+            </S.FormInput>
+
+            <S.FormInput>
+              <S.FormInputHeader>Duração</S.FormInputHeader>
+              <Input type="number" placeholder="Duração em minutos" />
+            </S.FormInput>
+          </S.FormInputsWrapper>
+
+          <S.FormFooter></S.FormFooter>
+        </S.SaveMovieForm>
       </Modal>
     </>
   )

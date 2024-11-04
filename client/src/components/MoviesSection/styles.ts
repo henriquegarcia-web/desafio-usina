@@ -55,3 +55,37 @@ export const AddMovieCard = styled(Card)`
     background-color: ${Colors.cardHover};
   }
 `
+
+// ================================================ SAVE MOVIE FORM
+
+export const SaveMovieForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+`
+
+export const FormInputsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  column-gap: 14px;
+  width: 100%;
+`
+
+export const FormInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  width: 100%;
+`
+
+export const FormInputHeader = styled.h3`
+  font-size: ${Fonts.xsss};
+  line-height: ${Fonts.xsss};
+  font-weight: 500;
+
+  color: ${Colors.fontLegend};
+`
+
+export const FormFooter = styled.div`
+  display: flex;
+`

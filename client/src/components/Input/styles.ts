@@ -23,6 +23,14 @@ export const Input = styled.input`
 
   color: ${Colors.font};
   background-color: transparent;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
 `
 
 export const Icon = styled.div`
