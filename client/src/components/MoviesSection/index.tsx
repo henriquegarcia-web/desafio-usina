@@ -28,14 +28,6 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
     ? useGetAllMovies()
     : useGetRecommendedMovies('user_id')
 
-  // const {
-  //   data: genresData,
-  //   error: genresError,
-  //   isLoading: genresIsLoading
-  // } = sectionId === 'saved_movies'
-  //   ? useGetAllMovies()
-  //   : useGetRecommendedMovies('user_id')
-
   const handleAddMovieSubmit = (data: any) => {
     console.log('Dados do filme adicionado:', data)
     handleCloseModal()
