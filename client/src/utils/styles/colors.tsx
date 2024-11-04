@@ -10,6 +10,7 @@ const ThemeDefault = {
 
   button: 'rgb(26, 133, 239)',
   buttonHovered: 'rgb(19, 121, 223)',
+  buttonDisabled: 'rgb(95, 95, 95)',
 
   font: 'rgba(255, 255, 255, 0.95)',
   fontLegend: 'rgba(255, 255, 255, 0.7)',

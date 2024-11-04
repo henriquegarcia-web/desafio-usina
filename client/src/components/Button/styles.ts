@@ -18,4 +18,8 @@ export const Button = styled.button<{ mode: 'default' | 'outlined' }>`
   &:hover {
     background-color: ${Colors.buttonHovered};
   }
+
+  &:disabled {
+    background-color: ${Colors.buttonDisabled};
+  }
 `
