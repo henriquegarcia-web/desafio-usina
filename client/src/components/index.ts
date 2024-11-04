@@ -10,6 +10,7 @@ import Input from './Input'
 import TextArea from './TextArea'
 import Dropdown from './Dropdown'
 import Button from './Button'
+import AddMovieForm from './AddMovieForm'
 
 export {
   Header,
@@ -23,5 +24,6 @@ export {
   Input,
   TextArea,
   Dropdown,
-  Button
+  Button,
+  AddMovieForm
 }
