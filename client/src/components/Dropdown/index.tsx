@@ -20,7 +20,7 @@ const Dropdown = ({ placeholder }: IDropdown) => {
       <S.DropdownSelected>
         {selectedData ? <b>{selectedData}</b> : <p>{placeholder}</p>}
       </S.DropdownSelected>
-      <S.DropdownToggle onClick={handleToggleDropdown}>
+      <S.DropdownToggle type="button" onClick={handleToggleDropdown}>
         {isDropdownOpen ? <FiChevronUp /> : <FiChevronDown />}
       </S.DropdownToggle>
     </S.Dropdown>

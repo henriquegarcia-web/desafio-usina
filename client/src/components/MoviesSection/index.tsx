@@ -9,7 +9,8 @@ import {
   TextArea,
   Modal,
   MovieCard,
-  SearchTmdb
+  SearchTmdb,
+  Button
 } from '@/components'
 
 import {
@@ -111,7 +112,9 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
             </S.FormInput>
           </S.FormInputsWrapper>
 
-          <S.FormFooter></S.FormFooter>
+          <S.FormFooter>
+            <Button type="submit" label="Adicionar" />
+          </S.FormFooter>
         </S.SaveMovieForm>
       </Modal>
     </>

@@ -9,6 +9,7 @@ import Modal from './Modal'
 import Input from './Input'
 import TextArea from './TextArea'
 import Dropdown from './Dropdown'
+import Button from './Button'
 
 export {
   Header,
@@ -21,5 +22,6 @@ export {
   Modal,
   Input,
   TextArea,
-  Dropdown
+  Dropdown,
+  Button
 }
