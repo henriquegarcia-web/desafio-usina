@@ -1,7 +1,9 @@
+import { useState } from 'react'
+
 import * as S from './styles'
 import { FiPlus } from 'react-icons/fi'
 
-import { MovieCard } from '@/components'
+import { Modal, MovieCard } from '@/components'
 
 import {
   useGetSavedMovies,
@@ -13,6 +15,16 @@ interface IMoviesSection {
 }
 
 const MoviesSection = ({ sectionId }: IMoviesSection) => {
+  const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false)
+
+  const handleOpenModal = () => {
+    setIsAddMovieModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsAddMovieModalOpen(false)
+  }
+
   const {
     data: moviesData,
     error,
@@ -33,30 +45,39 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
   if (error) return <div>Erro ao carregar filmes.</div>
 
   return (
-    <S.MoviesSection>
-      <S.SectionHeader>
-        <h2>{headerTitle}</h2>
-        <p>{headerSubtitle}</p>
-      </S.SectionHeader>
-      <S.SectionWrapper>
-        <S.MoviesList>
-          {Array.isArray(moviesData) ? (
-            moviesData.map((movie: any) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))
-          ) : (
-            // <div>Nenhum filme encontrado.</div>
-            <></>
-          )}
+    <>
+      <S.MoviesSection>
+        <S.SectionHeader>
+          <h2>{headerTitle}</h2>
+          <p>{headerSubtitle}</p>
+        </S.SectionHeader>
+        <S.SectionWrapper>
+          <S.MoviesList>
+            {Array.isArray(moviesData) ? (
+              moviesData.map((movie: any) => (
+                <MovieCard key={movie.id} movie={movie} />
+              ))
+            ) : (
+              // <div>Nenhum filme encontrado.</div>
+              <></>
+            )}
 
-          {sectionId === 'saved_movies' && (
-            <S.AddMovieCard>
-              <FiPlus />
-            </S.AddMovieCard>
-          )}
-        </S.MoviesList>
-      </S.SectionWrapper>
-    </S.MoviesSection>
+            {sectionId === 'saved_movies' && (
+              <S.AddMovieCard onClick={handleOpenModal}>
+                <FiPlus />
+              </S.AddMovieCard>
+            )}
+          </S.MoviesList>
+        </S.SectionWrapper>
+      </S.MoviesSection>
+      <Modal
+        title="Adicionar filme"
+        isOpen={isAddMovieModalOpen}
+        handleClose={handleCloseModal}
+      >
+        A
+      </Modal>
+    </>
   )
 }
 

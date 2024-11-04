@@ -2,6 +2,9 @@ const ThemeDefault = {
   background: '#04041e',
   header: '#000000',
 
+  backdrop: 'rgba(0, 0, 0, 0.4)',
+  modal: 'rgb(84, 84, 98)',
+
   primary: '#FFFFFF',
   secondary: '#000000',
 
