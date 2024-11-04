@@ -6,6 +6,7 @@ import UserMenu from './UserMenu'
 import MoviesSection from './MoviesSection'
 import MovieCard from './MovieCard'
 import Modal from './Modal'
+import Input from './Input'
 
 export {
   Header,
@@ -15,5 +16,6 @@ export {
   UserMenu,
   MoviesSection,
   MovieCard,
-  Modal
+  Modal,
+  Input
 }

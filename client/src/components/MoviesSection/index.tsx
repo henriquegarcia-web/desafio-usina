@@ -3,7 +3,7 @@ import { useState } from 'react'
 import * as S from './styles'
 import { FiPlus } from 'react-icons/fi'
 
-import { Modal, MovieCard } from '@/components'
+import { Modal, MovieCard, SearchTmdb } from '@/components'
 
 import {
   useGetSavedMovies,
@@ -75,7 +75,7 @@ const MoviesSection = ({ sectionId }: IMoviesSection) => {
         isOpen={isAddMovieModalOpen}
         handleClose={handleCloseModal}
       >
-        A
+        <SearchTmdb />
       </Modal>
     </>
   )

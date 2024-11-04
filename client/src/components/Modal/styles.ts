@@ -19,7 +19,7 @@ export const ModalBackdrop = styled.div`
 export const Modal = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 15px;
   width: 100%;
   max-width: 600px;
   padding: 20px;
@@ -32,6 +32,7 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 
   h2 {
   }
@@ -73,4 +74,6 @@ export const ModalClose = styled.button`
 
 export const ModalContent = styled.div`
   display: flex;
+  flex-direction: column;
+  width: 100%;
 `

@@ -3,21 +3,33 @@ import { Colors, Fonts } from '@/utils/styles/globals'
 
 export const InputWrapper = styled.div`
   display: flex;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+  padding: 0 14px;
+  border-radius: 5px;
+
+  background-color: ${Colors.inputBgContrast};
 `
 
 export const Input = styled.input`
-  font-size: ${Fonts.large};
-  line-height: ${Fonts.large};
-  font-weight: 600;
+  display: flex;
+  flex: 1;
+  padding: 10px 0;
+
+  font-size: ${Fonts.xss};
+  line-height: ${Fonts.xss};
+  font-weight: 400;
 
   color: ${Colors.font};
+  background-color: transparent;
 `
 
 export const Icon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
+  width: fit-content;
   height: 20px;
 
   svg {
