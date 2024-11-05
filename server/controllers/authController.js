@@ -13,7 +13,16 @@ const authController = {
 
     const passwordHash = await bcrypt.hash(password, 10)
     const user = await AuthModel.createUser(username, email, passwordHash)
-    res.json(user)
+
+    const token = jwt.sign(
+      { id: user.user_id, email: user.email, name: user.username },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1h'
+      }
+    )
+
+    res.json({ user, token })
   },
 
   async login(req, res) {

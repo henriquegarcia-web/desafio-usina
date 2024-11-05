@@ -14,6 +14,13 @@ const AuthModel = {
       username
     ])
     return result.rows[0]
+  },
+
+  async findUserByEmail(email) {
+    const result = await pool.query('SELECT * FROM users WHERE email = $1', [
+      email
+    ])
+    return result.rows[0]
   }
 }
 
