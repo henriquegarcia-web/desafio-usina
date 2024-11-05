@@ -8,6 +8,7 @@ interface IInput {
   placeholder: string
   value?: string | number
   hasError?: boolean
+  errorMessage?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -19,6 +20,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
       placeholder,
       value = '',
       hasError = false,
+      errorMessage,
       onChange,
       ...props
     },
@@ -31,35 +33,41 @@ const Input = forwardRef<HTMLInputElement, IInput>(
     }
 
     return (
-      <S.InputWrapper>
-        {mode === 'search' && (
-          <S.Icon>
-            <FiSearch />
-          </S.Icon>
-        )}
+      <S.InputContainer>
+        <S.InputWrapper>
+          {mode === 'search' && (
+            <S.Icon>
+              <FiSearch />
+            </S.Icon>
+          )}
 
-        <S.Input
-          ref={ref}
-          type={
-            mode === 'password'
-              ? isPasswordVisible
-                ? 'text'
-                : 'password'
-              : type
-          }
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          className={hasError ? 'error' : ''}
-          {...props}
-        />
+          <S.Input
+            ref={ref}
+            type={
+              mode === 'password'
+                ? isPasswordVisible
+                  ? 'text'
+                  : 'password'
+                : type
+            }
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            className={hasError ? 'error' : ''}
+            autoComplete="off"
+            {...props}
+          />
 
-        {mode === 'password' && (
-          <S.PasswordToggle onClick={togglePasswordVisibility}>
-            {isPasswordVisible ? <FiEye /> : <FiEyeOff />}
-          </S.PasswordToggle>
+          {mode === 'password' && (
+            <S.PasswordToggle onClick={togglePasswordVisibility}>
+              {isPasswordVisible ? <FiEye /> : <FiEyeOff />}
+            </S.PasswordToggle>
+          )}
+        </S.InputWrapper>
+        {hasError && errorMessage && (
+          <S.InputWarning>{errorMessage}</S.InputWarning>
         )}
-      </S.InputWrapper>
+      </S.InputContainer>
     )
   }
 )

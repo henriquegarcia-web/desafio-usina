@@ -1,6 +1,17 @@
 import styled from 'styled-components'
 import { Colors, Fonts } from '@/utils/styles/globals'
 
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  width: 100%;
+  /* padding: 0 14px;
+  border-radius: 5px; */
+
+  /* background-color: ${Colors.inputBgContrast}; */
+`
+
 export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -63,4 +74,12 @@ export const PasswordToggle = styled.button`
 
     color: ${Colors.font};
   }
+`
+
+export const InputWarning = styled.p`
+  font-size: ${Fonts.xss};
+  line-height: ${Fonts.xss};
+  font-weight: 400;
+
+  color: ${Colors.error};
 `

@@ -5,11 +5,21 @@ import React, {
   useState,
   useEffect
 } from 'react'
-import { login as loginService } from '@/services/auth'
+
+import {
+  login as loginService,
+  register as registerService,
+  verifyToken
+} from '@/services/auth'
 
 export interface IAuthContextData {
   isUserLogged: boolean
   login: (credentials: { username: string; password: string }) => Promise<void>
+  register: (userData: {
+    username: string
+    email: string
+    password: string
+  }) => Promise<void>
   logout: () => void
 }
 
@@ -25,12 +35,28 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await loginService(credentials)
       const { token } = response
-
       setToken(token)
       localStorage.setItem('token', token)
       setIsUserLogged(true)
     } catch (error) {
       console.error('Login failed', error)
+      throw error
+    }
+  }
+
+  const register = async (userData: {
+    username: string
+    email: string
+    password: string
+  }) => {
+    try {
+      const response = await registerService(userData)
+      const { token } = response
+      setToken(token)
+      localStorage.setItem('token', token)
+      setIsUserLogged(true)
+    } catch (error) {
+      console.error('Registration failed', error)
       throw error
     }
   }
@@ -53,6 +79,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return {
       isUserLogged,
       login,
+      register,
       logout
     }
   }, [isUserLogged])

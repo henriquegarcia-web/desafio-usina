@@ -7,8 +7,10 @@ import {
   MovieScreen
 } from '@/screens'
 
+import { useAuth } from '@/contexts/AuthProvider'
+
 const AppRoutes = () => {
-  const isAuthenticated = true
+  const { isUserLogged } = useAuth()
 
   return (
     <BrowserRouter>
@@ -23,25 +25,25 @@ const AppRoutes = () => {
         <Route
           path="/entrar"
           element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
+            <PublicRoute isAuthenticated={isUserLogged}>
               <SignInScreen />
-            </PrivateRoute>
+            </PublicRoute>
           }
         />
 
         <Route
           path="/cadastrar"
           element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
+            <PublicRoute isAuthenticated={isUserLogged}>
               <SignUpScreen />
-            </PrivateRoute>
+            </PublicRoute>
           }
         />
 
         <Route
           path="/biblioteca"
           element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
+            <PrivateRoute isAuthenticated={isUserLogged}>
               <LibraryScreen />
             </PrivateRoute>
           }
@@ -50,7 +52,7 @@ const AppRoutes = () => {
         <Route
           path="/biblioteca/:movie_id"
           element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
+            <PrivateRoute isAuthenticated={isUserLogged}>
               <MovieScreen />
             </PrivateRoute>
           }
@@ -73,7 +75,7 @@ interface RouteProps {
 
 const PrivateRoute = ({ isAuthenticated, children }: RouteProps) => {
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/entrar" replace />
   }
 
   return children
@@ -81,7 +83,7 @@ const PrivateRoute = ({ isAuthenticated, children }: RouteProps) => {
 
 const PublicRoute = ({ isAuthenticated, children }: RouteProps) => {
   if (isAuthenticated) {
-    return <Navigate to="/" />
+    return <Navigate to="/biblioteca" />
   }
 
   return children
