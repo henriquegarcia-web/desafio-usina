@@ -25,7 +25,7 @@ const authController = {
     }
 
     const token = jwt.sign(
-      { id: user.user_id, email: user.email },
+      { id: user.user_id, email: user.email, name: user.name },
       process.env.JWT_SECRET,
       {
         expiresIn: '1h'
@@ -42,7 +42,11 @@ const authController = {
 
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
-      res.json({ userId: decoded.id, email: decoded.email })
+      res.json({
+        userId: decoded.id,
+        email: decoded.email,
+        name: decoded.name
+      })
     } catch (error) {
       res.status(401).json({ message: 'Invalid token' })
     }
