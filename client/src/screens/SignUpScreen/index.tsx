@@ -29,22 +29,21 @@ const signUpSchema = Yup.object().shape({
 const SignUpScreen = () => {
   const navigate = useNavigate()
 
-  const { register, login } = useAuth()
+  const { handleRegister } = useAuth()
   const { control, handleSubmit, formState } = useForm<ISignUpFormData>({
     resolver: yupResolver(signUpSchema)
   })
   const { errors, isSubmitting } = formState
 
   const onSubmit = async (data: ISignUpFormData) => {
-    try {
-      await register({
-        username: data.username,
-        email: data.email,
-        password: data.password
-      })
+    const responseRegister = await handleRegister({
+      username: data.username,
+      email: data.email,
+      password: data.password
+    })
+
+    if (responseRegister) {
       navigate('/biblioteca')
-    } catch (error) {
-      console.error('Erro ao cadastrar:', error)
     }
   }
 

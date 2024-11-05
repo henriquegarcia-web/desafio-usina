@@ -15,13 +15,16 @@ import {
 export interface IAuthContextData {
   isUserLogged: boolean
   user: { id: string; email: string; name: string } | null
-  login: (credentials: { email: string; password: string }) => Promise<void>
-  register: (userData: {
+  handleLogin: (credentials: {
+    email: string
+    password: string
+  }) => Promise<boolean>
+  handleRegister: (userData: {
     username: string
     email: string
     password: string
-  }) => Promise<void>
-  logout: () => void
+  }) => Promise<boolean>
+  handleLogout: () => void
 }
 
 export const AuthContext = createContext<IAuthContextData>(
@@ -37,8 +40,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     name: string
   } | null>(null)
 
-  const login = async (credentials: { email: string; password: string }) => {
-    console.log('AQUI')
+  const handleLogin = async (credentials: {
+    email: string
+    password: string
+  }) => {
     try {
       const response = await loginService(credentials)
       const { token } = response
@@ -47,13 +52,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.setItem('token', token)
       await verifyCurrentUser(token)
       setIsUserLogged(true)
+
+      // alert
+      return true
     } catch (error) {
       console.error('Login failed', error)
-      throw error
+
+      // alert
+      return false
     }
   }
 
-  const register = async (userData: {
+  const handleRegister = async (userData: {
     username: string
     email: string
     password: string
@@ -66,13 +76,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.setItem('token', token)
       await verifyCurrentUser(token)
       setIsUserLogged(true)
+
+      // alert
+      return true
     } catch (error) {
       console.error('Registration failed', error)
-      throw error
+
+      // alert
+      return false
     }
   }
 
-  const logout = () => {
+  const handleLogout = () => {
     setToken(null)
     setUser(null)
     localStorage.removeItem('token')
@@ -89,7 +104,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       })
     } catch (error) {
       console.error('Token verification failed', error)
-      logout()
+      handleLogout()
     }
   }
 
@@ -106,9 +121,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return {
       isUserLogged,
       user,
-      login,
-      register,
-      logout
+      handleLogin,
+      handleRegister,
+      handleLogout
     }
   }, [isUserLogged, user])
 

@@ -23,18 +23,20 @@ const signInSchema = Yup.object().shape({
 const SignInScreen = () => {
   const navigate = useNavigate()
 
-  const { login } = useAuth()
+  const { handleLogin } = useAuth()
   const { control, handleSubmit, formState } = useForm<ISignInFormData>({
     resolver: yupResolver(signInSchema)
   })
   const { errors, isSubmitting } = formState
 
   const onSubmit = async (data: ISignInFormData) => {
-    try {
-      await login({ email: data.email, password: data.password })
+    const responseLogin = await handleLogin({
+      email: data.email,
+      password: data.password
+    })
+
+    if (responseLogin) {
       navigate('/biblioteca')
-    } catch (error) {
-      console.error('Erro ao entrar:', error)
     }
   }
 

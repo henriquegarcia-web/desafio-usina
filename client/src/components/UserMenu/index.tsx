@@ -12,7 +12,7 @@ interface IUserMenu {}
 const UserMenu = ({}: IUserMenu) => {
   const userMenuRef = useRef(null)
 
-  const { user, logout } = useAuth()
+  const { user, handleLogout } = useAuth()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -34,7 +34,7 @@ const UserMenu = ({}: IUserMenu) => {
       </S.UserMenuContainer>
       {isMenuOpen && (
         <S.UserMenuModal ref={userMenuRef}>
-          <S.UserMenuItem onClick={logout}>Sair</S.UserMenuItem>
+          <S.UserMenuItem onClick={handleLogout}>Sair</S.UserMenuItem>
         </S.UserMenuModal>
       )}
     </S.UserMenu>
