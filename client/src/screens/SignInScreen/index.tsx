@@ -31,7 +31,7 @@ const SignInScreen = () => {
 
   const onSubmit = async (data: ISignInFormData) => {
     try {
-      await login({ username: data.email, password: data.password })
+      await login({ email: data.email, password: data.password })
       navigate('/biblioteca')
     } catch (error) {
       console.error('Erro ao entrar:', error)

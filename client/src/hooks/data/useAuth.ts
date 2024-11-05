@@ -15,7 +15,7 @@ const useRegister = () => {
 const useLogin = () => {
   const { login } = useAuth()
   return useMutation({
-    mutationFn: async (credentials: { username: string; password: string }) =>
+    mutationFn: async (credentials: { email: string; password: string }) =>
       login(credentials)
   })
 }

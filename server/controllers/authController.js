@@ -26,21 +26,22 @@ const authController = {
   },
 
   async login(req, res) {
-    const { username, password } = req.body
-    const user = await AuthModel.findUserByUsername(username)
+    const { email, password } = req.body
+    console.log(email, password)
+    const user = await AuthModel.findUserByEmail(email)
 
     if (!user || !(await bcrypt.compare(password, user.password_hash))) {
       return res.status(401).json({ message: 'Invalid credentials' })
     }
 
     const token = jwt.sign(
-      { id: user.user_id, email: user.email, name: user.name },
+      { id: user.user_id, email: user.email, name: user.username },
       process.env.JWT_SECRET,
       {
         expiresIn: '1h'
       }
     )
-    res.json({ token })
+    res.json({ user, token })
   },
 
   async verifyToken(req, res) {

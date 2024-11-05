@@ -9,7 +9,7 @@ const register = async (userData: {
   return response.data
 }
 
-const login = async (credentials: { username: string; password: string }) => {
+const login = async (credentials: { email: string; password: string }) => {
   const response = await api.post('/auth/login', credentials)
   return response.data
 }

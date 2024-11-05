@@ -15,7 +15,7 @@ import {
 export interface IAuthContextData {
   isUserLogged: boolean
   user: { id: string; email: string; name: string } | null
-  login: (credentials: { username: string; password: string }) => Promise<void>
+  login: (credentials: { email: string; password: string }) => Promise<void>
   register: (userData: {
     username: string
     email: string
@@ -37,7 +37,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     name: string
   } | null>(null)
 
-  const login = async (credentials: { username: string; password: string }) => {
+  const login = async (credentials: { email: string; password: string }) => {
+    console.log('AQUI')
     try {
       const response = await loginService(credentials)
       const { token } = response
