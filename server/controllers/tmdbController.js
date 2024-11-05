@@ -9,9 +9,12 @@ exports.searchMovies = async (req, res) => {
   const { query } = req.query
 
   if (!query) {
-    return res
-      .status(400)
-      .json({ error: 'Parâmetro de pesquisa "query" é obrigatório.' })
+    return res.status(400).json({
+      error: {
+        code: 'PARAM_MISSING',
+        message: 'Parâmetro de pesquisa "query" é obrigatório.'
+      }
+    })
   }
 
   const url = `${TMDB_API_URL}&query=${encodeURIComponent(query)}`
@@ -29,12 +32,22 @@ exports.searchMovies = async (req, res) => {
     const data = await response.json()
 
     if (response.ok) {
-      res.json(data.results)
+      res.json({ data: data.results })
     } else {
-      res.status(response.status).json({ error: data.status_message })
+      res.status(response.status).json({
+        error: {
+          code: response.status,
+          message: data.status_message || 'Erro ao buscar dados do TMDb.'
+        }
+      })
     }
   } catch (err) {
     console.error('Erro ao buscar dados do TMDb:', err)
-    res.status(500).json({ error: 'Erro ao buscar dados do TMDb' })
+    res.status(500).json({
+      error: {
+        code: 'INTERNAL_ERROR',
+        message: 'Erro interno ao buscar dados do TMDb.'
+      }
+    })
   }
 }
