@@ -27,7 +27,12 @@ const ThemeDefault = {
   scrollbarTrack: 'rgb(30, 30, 30)',
   scrollbarThumb: 'rgb(70, 70, 70)',
 
-  error: 'rgb(255, 0, 0)'
+  error: 'rgb(255, 0, 0)',
+
+  movieCardBorder: 'rgba(255, 0, 0, 0.6)',
+  movieCardBg:
+    'linear-gradient(to bottom, rgba(255, 0, 0, 0), rgba(255, 0, 0, 0.05))',
+  movieCardColor: ''
 }
 
 export { ThemeDefault }

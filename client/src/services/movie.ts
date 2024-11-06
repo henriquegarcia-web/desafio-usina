@@ -29,8 +29,6 @@ const createMovie = async (
   }
 ) => {
   try {
-    console.log({ userId, ...movieData })
-
     const response = await api.post(`/movies`, { userId, ...movieData })
     return response.data
   } catch (error: any) {
