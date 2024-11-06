@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-  useEffect
-} from 'react'
+import { createContext, useContext, useMemo, useState, useEffect } from 'react'
 
 import {
   login as loginService,
@@ -12,6 +6,7 @@ import {
   verifyToken
 } from '@/services/auth'
 
+import { jwtDecode } from 'jwt-decode'
 import { toast } from 'react-toastify'
 
 export interface IAuthContextData {
@@ -41,6 +36,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     email: string
     name: string
   } | null>(null)
+  const [tokenExpiration, setTokenExpiration] = useState<number | null>(null)
 
   const handleLogin = async (credentials: {
     email: string
@@ -49,10 +45,17 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await loginService(credentials)
       const { token } = response
-      console.log('TOKEN RECEBIDO: ', token)
+
+      const decodedToken: any = jwtDecode(token)
+      setTokenExpiration(decodedToken.exp * 1000)
+
       await verifyCurrentUser(token)
 
-      localStorage.setItem('token', response)
+      localStorage.setItem('token', token)
+      localStorage.setItem(
+        'tokenExpiration',
+        (decodedToken.exp * 1000).toString()
+      )
       setToken(token)
       setIsUserLogged(true)
 
@@ -60,7 +63,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return true
     } catch (error: any) {
       console.error('Falha ao realizar login', error)
-
       toast(error.message)
       return false
     }
@@ -74,10 +76,19 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await registerService(userData)
       const { token } = response
+
+      const decodedToken: any = jwtDecode(token)
+      setTokenExpiration(decodedToken.exp * 1000)
+
       console.log('TOKEN RECEBIDO: ', token)
+
       await verifyCurrentUser(token)
 
       localStorage.setItem('token', token)
+      localStorage.setItem(
+        'tokenExpiration',
+        (decodedToken.exp * 1000).toString()
+      )
       setToken(token)
       setIsUserLogged(true)
 
@@ -85,7 +96,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return true
     } catch (error: any) {
       console.error('Falha ao realizar cadastro', error)
-
       toast(error)
       return false
     }
@@ -94,7 +104,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const handleLogout = () => {
     setToken(null)
     setUser(null)
+    setTokenExpiration(null)
     localStorage.removeItem('token')
+    localStorage.removeItem('tokenExpiration')
     setIsUserLogged(false)
   }
 
@@ -112,13 +124,30 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  useEffect(() => {
+  const checkTokenValidity = () => {
     const storedToken = localStorage.getItem('token')
-    if (storedToken) {
-      setToken(storedToken)
-      verifyCurrentUser(storedToken)
-      setIsUserLogged(true)
+    const storedExpiration = localStorage.getItem('tokenExpiration')
+
+    if (storedToken && storedExpiration) {
+      const expirationTime = parseInt(storedExpiration)
+      const currentTime = Date.now()
+
+      if (currentTime > expirationTime) {
+        handleLogout()
+      } else {
+        setToken(storedToken)
+        setTokenExpiration(expirationTime)
+        verifyCurrentUser(storedToken)
+        setIsUserLogged(true)
+      }
     }
+  }
+
+  useEffect(() => {
+    checkTokenValidity()
+
+    const interval = setInterval(checkTokenValidity, 5 * 60 * 1000)
+    return () => clearInterval(interval)
   }, [])
 
   const AuthContextData: IAuthContextData = useMemo(() => {

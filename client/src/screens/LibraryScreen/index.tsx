@@ -11,35 +11,23 @@ interface ILibraryScreen {}
 const LibraryScreen = ({}: ILibraryScreen) => {
   const { user } = useAuth()
 
-  if (!user) return <div>Carregando...</div>
+  const savedMovies = useGetAllMovies(user ? user.id : '')
+  const recommendedMovies = useGetAllMovies(user ? user.id : '')
 
-  const {
-    data: savedMoviesData,
-    fetchStatus: savedMoviesStatus,
-    error: savedMoviesError,
-    isLoading: savedMoviesIsLoading
-  } = useGetAllMovies(user.id)
+  const isLoading = savedMovies.isLoading || recommendedMovies.isLoading
+  const error = savedMovies.error || recommendedMovies.error
 
-  const {
-    data: recommendedMoviesData,
-    fetchStatus: recommendedMoviesStatus,
-    error: recommendedMoviesError,
-    isLoading: recommendedMoviesIsLoading
-  } = useGetAllMovies(user.id)
-
-  if (savedMoviesIsLoading || recommendedMoviesIsLoading)
-    return <div>Carregando...</div>
-  if (savedMoviesError || recommendedMoviesError)
-    return <div>Erro ao carregar filmes.</div>
+  if (isLoading) return <div>Carregando...</div>
+  if (error) return <div>Erro ao carregar filmes.</div>
 
   return (
     <S.LibraryScreen>
       <Header />
 
       <S.LibraryScreenWrapper>
-        <MoviesSection moviesData={savedMoviesData} sectionId="saved_movies" />
+        <MoviesSection moviesData={savedMovies.data} sectionId="saved_movies" />
         <MoviesSection
-          moviesData={recommendedMoviesData}
+          moviesData={recommendedMovies.data}
           sectionId="recommended_movies"
         />
       </S.LibraryScreenWrapper>
