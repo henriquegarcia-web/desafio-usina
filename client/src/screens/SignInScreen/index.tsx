@@ -27,7 +27,7 @@ const SignInScreen = () => {
   const { control, handleSubmit, formState } = useForm<ISignInFormData>({
     resolver: yupResolver(signInSchema)
   })
-  const { errors, isSubmitting } = formState
+  const { errors, isSubmitting, isValid } = formState
 
   const onSubmit = async (data: ISignInFormData) => {
     const responseLogin = await handleLogin({
@@ -71,7 +71,12 @@ const SignInScreen = () => {
               />
             )}
           />
-          <Button label="Entrar" type="submit" disabled={isSubmitting} />
+          <Button
+            label="Entrar"
+            type="submit"
+            disabled={!isValid}
+            loading={isSubmitting}
+          />
         </S.SignInContainerForm>
         <S.SignInContainerSwitch>
           Não possui cadastro? <Link to="/cadastrar">Criar Conta</Link>

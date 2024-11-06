@@ -26,7 +26,7 @@ const authController = {
         { expiresIn: '1h' }
       )
 
-      res.json({ data: { user, token } })
+      res.json({ user, token })
     } catch (error) {
       console.error('Erro ao registrar usuário:', error)
       res.status(500).json({
@@ -57,7 +57,8 @@ const authController = {
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
       )
-      res.json({ data: { user, token } })
+
+      res.json({ user, token })
     } catch (error) {
       console.error('Erro ao fazer login:', error)
       res.status(500).json({
@@ -83,11 +84,9 @@ const authController = {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET)
       res.json({
-        data: {
-          userId: decoded.id,
-          email: decoded.email,
-          name: decoded.name
-        }
+        userId: decoded.id,
+        email: decoded.email,
+        name: decoded.name
       })
     } catch (error) {
       res.status(401).json({

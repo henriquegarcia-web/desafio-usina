@@ -34,7 +34,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 
     return (
       <S.InputContainer>
-        <S.InputWrapper>
+        <S.InputWrapper className={hasError ? 'error' : ''}>
           {mode === 'search' && (
             <S.Icon>
               <FiSearch />
@@ -53,7 +53,6 @@ const Input = forwardRef<HTMLInputElement, IInput>(
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className={hasError ? 'error' : ''}
             autoComplete="off"
             {...props}
           />

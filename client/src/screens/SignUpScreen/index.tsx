@@ -33,7 +33,7 @@ const SignUpScreen = () => {
   const { control, handleSubmit, formState } = useForm<ISignUpFormData>({
     resolver: yupResolver(signUpSchema)
   })
-  const { errors, isSubmitting } = formState
+  const { errors, isSubmitting, isValid } = formState
 
   const onSubmit = async (data: ISignUpFormData) => {
     const responseRegister = await handleRegister({
@@ -104,7 +104,12 @@ const SignUpScreen = () => {
               />
             )}
           />
-          <Button label="Criar Conta" type="submit" disabled={isSubmitting} />
+          <Button
+            label="Criar Conta"
+            type="submit"
+            disabled={!isValid}
+            loading={isSubmitting}
+          />
         </S.SignUpContainerForm>
         <S.SignUpContainerSwitch>
           Já possui cadastro? <Link to="/entrar">Entrar</Link>

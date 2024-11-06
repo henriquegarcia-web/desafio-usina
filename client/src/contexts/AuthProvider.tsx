@@ -49,9 +49,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await loginService(credentials)
       const { token } = response
+      console.log('TOKEN RECEBIDO: ', token)
       await verifyCurrentUser(token)
 
-      localStorage.setItem('token', token)
+      localStorage.setItem('token', response)
       setToken(token)
       setIsUserLogged(true)
 
@@ -73,6 +74,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await registerService(userData)
       const { token } = response
+      console.log('TOKEN RECEBIDO: ', token)
       await verifyCurrentUser(token)
 
       localStorage.setItem('token', token)

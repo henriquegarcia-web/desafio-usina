@@ -4,12 +4,8 @@ import { Colors, Fonts } from '@/utils/styles/globals'
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
+  row-gap: 6px;
   width: 100%;
-  /* padding: 0 14px;
-  border-radius: 5px; */
-
-  /* background-color: ${Colors.inputBgContrast}; */
 `
 
 export const InputWrapper = styled.div`
@@ -21,6 +17,10 @@ export const InputWrapper = styled.div`
   border-radius: 5px;
 
   background-color: ${Colors.inputBgContrast};
+
+  &.error {
+    border: 1px solid ${Colors.error};
+  }
 `
 
 export const Input = styled.input`
@@ -41,10 +41,6 @@ export const Input = styled.input`
     -moz-appearance: none;
     appearance: none;
     margin: 0;
-  }
-
-  &.error {
-    border: 1px solid ${Colors.error};
   }
 `
 
@@ -77,8 +73,8 @@ export const PasswordToggle = styled.button`
 `
 
 export const InputWarning = styled.p`
-  font-size: ${Fonts.xss};
-  line-height: ${Fonts.xss};
+  font-size: ${Fonts.xsss};
+  line-height: ${Fonts.xsss};
   font-weight: 400;
 
   color: ${Colors.error};
