@@ -3,7 +3,19 @@ const Movie = require('../models/movieModel')
 const movieController = {
   async getAllMovies(req, res) {
     try {
-      const movies = await Movie.getAllMovies(req.params.userId)
+      const userId = req.params.userId
+      const filters = {
+        searchTerm: req.query.searchTerm || null,
+        genre: req.query.genre || null,
+        year: req.query.year ? parseInt(req.query.year) : null,
+        minDuration: req.query.minDuration
+          ? parseInt(req.query.minDuration)
+          : null,
+        maxDuration: req.query.maxDuration
+          ? parseInt(req.query.maxDuration)
+          : null
+      }
+      const movies = await Movie.getAllMovies(userId, filters)
       res.json(movies)
     } catch (error) {
       console.error('Erro ao obter todos os filmes:', error)
@@ -30,6 +42,12 @@ const movieController = {
   async createMovie(req, res) {
     const { userId, title, description, genre, year, duration } = req.body
     try {
+      if (year < 1888) {
+        return res.status(400).json({
+          code: 'INVALID_YEAR',
+          message: 'O ano do filme deve ser maior ou igual a 1888.'
+        })
+      }
       const movie = await Movie.createMovie(
         userId,
         title,

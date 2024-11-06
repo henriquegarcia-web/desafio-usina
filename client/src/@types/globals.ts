@@ -9,10 +9,19 @@ export type RefDivType = RefObject<HTMLDivElement>
 // ==================== MOVIES
 
 export interface IMovie {
+  id: string
   title: string
   description: string
   genre: string
-  releaseYear: number
+  year: number
+  duration: number
+}
+
+export interface IMovieInput {
+  title: string
+  description: string
+  genre: string
+  year: number
   duration: number
 }
 
@@ -22,4 +31,11 @@ export interface IMovieForm {
   movieGenre: string
   movieReleaseYear: number
   movieDuration: number
+}
+
+export interface IMovieFilter {
+  searchTerm?: string
+  genre?: string
+  year?: number
+  duration?: { min: number; max: number }
 }

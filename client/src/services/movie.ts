@@ -1,15 +1,22 @@
 import api from '@/lib/fetch'
 
-const getAllMovies = async (userId: string) => {
+import { IMovie, IMovieInput, IMovieFilter } from '@/@types/globals'
+
+const getAllMovies = async (
+  userId: string,
+  filters?: IMovieFilter
+): Promise<IMovie[]> => {
   try {
-    const response = await api.get(`/movies/user/${userId}`)
+    const response = await api.get(`/movies/user/${userId}`, {
+      params: filters
+    })
     return response.data
   } catch (error: any) {
     throw error.response?.data || error
   }
 }
 
-const getMovieById = async (id: string) => {
+const getMovieById = async (id: string): Promise<IMovie> => {
   try {
     const response = await api.get(`/movies/${id}`)
     return response.data
@@ -20,14 +27,8 @@ const getMovieById = async (id: string) => {
 
 const createMovie = async (
   userId: string,
-  movieData: {
-    title: string
-    description: string
-    genre: string
-    year: number
-    duration: number
-  }
-) => {
+  movieData: IMovieInput
+): Promise<IMovie> => {
   try {
     const response = await api.post(`/movies`, { userId, ...movieData })
     return response.data
@@ -39,14 +40,8 @@ const createMovie = async (
 const updateMovie = async (
   id: string,
   userId: string,
-  movieData: {
-    title?: string
-    description?: string
-    genre?: string
-    year?: number
-    duration?: number
-  }
-) => {
+  movieData: Partial<IMovieInput>
+): Promise<IMovie> => {
   try {
     const response = await api.put(`/movies/${id}/user/${userId}`, movieData)
     return response.data
@@ -55,16 +50,15 @@ const updateMovie = async (
   }
 }
 
-const deleteMovie = async (id: string, userId: string) => {
+const deleteMovie = async (id: string, userId: string): Promise<void> => {
   try {
-    const response = await api.delete(`/movies/${id}/user/${userId}`)
-    return response.data
+    await api.delete(`/movies/${id}/user/${userId}`)
   } catch (error: any) {
     throw error.response?.data || error
   }
 }
 
-const getRecommendedMovies = async (userId: string) => {
+const getRecommendedMovies = async (userId: string): Promise<IMovie[]> => {
   try {
     const response = await api.get(`/movies/recommendations/${userId}`)
     return response.data

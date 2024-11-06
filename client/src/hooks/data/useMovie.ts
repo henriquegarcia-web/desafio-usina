@@ -8,10 +8,12 @@ import {
   getRecommendedMovies
 } from '@/services/movie'
 
-const useGetAllMovies = (userId: string) => {
-  return useQuery({
-    queryKey: ['movies', userId],
-    queryFn: async () => getAllMovies(userId),
+import { IMovie, IMovieFilter } from '@/@types/globals'
+
+const useGetAllMovies = (userId: string, filters?: IMovieFilter) => {
+  return useQuery<IMovie[]>({
+    queryKey: ['movies', userId, filters],
+    queryFn: () => getAllMovies(userId, filters),
     enabled: !!userId
   })
 }
