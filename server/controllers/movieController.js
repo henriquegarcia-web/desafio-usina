@@ -3,7 +3,7 @@ const Movie = require('../models/movieModel')
 const movieController = {
   async getAllMovies(req, res) {
     try {
-      const movies = await Movie.getAllMovies()
+      const movies = await Movie.getAllMovies(req.params.userId)
       res.json({ data: movies })
     } catch (error) {
       console.error('Erro ao obter todos os filmes:', error)

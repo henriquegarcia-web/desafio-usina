@@ -1,8 +1,12 @@
 import api from '@/lib/fetch'
 
 const fetchMovieSuggestions = async (query: string) => {
-  const response = await api.get(`/tmdb/search?query=${query}`)
-  return response.data
+  try {
+    const response = await api.get(`/tmdb/search?query=${query}`)
+    return response.data
+  } catch (error: any) {
+    throw error.response?.data.error || error
+  }
 }
 
 export { fetchMovieSuggestions }

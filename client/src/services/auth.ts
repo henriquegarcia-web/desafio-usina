@@ -5,20 +5,32 @@ const register = async (userData: {
   email: string
   password: string
 }) => {
-  const response = await api.post('/auth/register', userData)
-  return response.data
+  try {
+    const response = await api.post('/auth/register', userData)
+    return response.data
+  } catch (error: any) {
+    throw error.response?.data.error || error
+  }
 }
 
 const login = async (credentials: { email: string; password: string }) => {
-  const response = await api.post('/auth/login', credentials)
-  return response.data
+  try {
+    const response = await api.post('/auth/login', credentials)
+    return response.data
+  } catch (error: any) {
+    throw error.response?.data.error || error
+  }
 }
 
 const verifyToken = async (token: string) => {
-  const response = await api.get('/auth/verify-token', {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-  return response.data
+  try {
+    const response = await api.get('/auth/verify-token', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+  } catch (error: any) {
+    throw error.response?.data.error || error
+  }
 }
 
 export { register, login, verifyToken }

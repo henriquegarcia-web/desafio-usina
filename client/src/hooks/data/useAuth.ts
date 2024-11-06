@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { register, login as loginService } from '@/services/auth'
-import { useAuth } from '@/contexts/AuthProvider'
+import { register, login } from '@/services/auth'
 
 const useRegister = () => {
   return useMutation({
@@ -13,7 +12,6 @@ const useRegister = () => {
 }
 
 const useLogin = () => {
-  const { login } = useAuth()
   return useMutation({
     mutationFn: async (credentials: { email: string; password: string }) =>
       login(credentials)

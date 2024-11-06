@@ -8,10 +8,11 @@ import {
   getRecommendedMovies
 } from '@/services/movie'
 
-const useGetAllMovies = () => {
+const useGetAllMovies = (userId: string) => {
   return useQuery({
-    queryKey: ['movies'],
-    queryFn: async () => getAllMovies()
+    queryKey: ['movies', userId],
+    queryFn: async () => getAllMovies(userId),
+    enabled: !!userId
   })
 }
 
@@ -24,15 +25,29 @@ const useGetMovieById = (id: string) => {
 
 const useCreateMovie = () => {
   return useMutation({
-    mutationFn: async (movieData: { title: string; genre: string }) =>
-      createMovie(movieData)
+    mutationFn: async (data: {
+      userId: string
+      movieData: {
+        title: string
+        genre: string
+        year: number
+        duration: number
+      }
+    }) => createMovie(data.userId, data.movieData)
   })
 }
 
 const useUpdateMovie = () => {
   return useMutation({
-    mutationFn: async (data: { id: string; movieData: any }) =>
-      updateMovie(data.id, data.movieData)
+    mutationFn: async (data: {
+      id: string
+      movieData: {
+        title?: string
+        genre?: string
+        year?: number
+        duration?: number
+      }
+    }) => updateMovie(data.id, data.movieData)
   })
 }
 
