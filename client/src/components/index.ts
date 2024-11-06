@@ -12,6 +12,7 @@ import Dropdown from './Dropdown'
 import Button from './Button'
 import AddMovieForm from './AddMovieForm'
 import GenreDropdown from './GenreDropdown'
+import MovieDatails from './MovieDatails'
 
 export {
   Header,
@@ -27,5 +28,6 @@ export {
   Dropdown,
   Button,
   AddMovieForm,
-  GenreDropdown
+  GenreDropdown,
+  MovieDatails
 }

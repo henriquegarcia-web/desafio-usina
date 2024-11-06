@@ -8,8 +8,8 @@ const ThemeDefault = {
   primary: 'rgb(0, 122, 255)',
   secondary: 'rgb(60, 60, 60)',
 
-  button: 'rgb(0, 122, 255)',
-  buttonHovered: 'rgb(0, 105, 223)',
+  button: 'rgb(172, 12, 240)',
+  buttonHovered: 'rgb(157, 6, 222)',
   buttonDisabled: 'rgb(80, 80, 80)',
 
   font: 'rgb(240, 240, 240)',

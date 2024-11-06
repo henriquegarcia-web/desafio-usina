@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Card, Colors, Fonts } from '@/utils/styles/globals'
 
 export const MoviesSection = styled.section`
+  z-index: 50;
   display: flex;
   flex-direction: column;
   row-gap: 20px;

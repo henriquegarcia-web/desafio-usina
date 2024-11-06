@@ -14,6 +14,10 @@ export const MovieCard = styled(Card)`
       color: ${Colors.font};
     }
   }
+
+  &.active {
+    border: 2px solid ${Colors.movieCardBorder};
+  }
 `
 
 export const MovieCardTitle = styled.h3`

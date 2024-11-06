@@ -2,12 +2,28 @@ import styled from 'styled-components'
 import { Screen, Colors, Sizes } from '@/utils/styles/globals'
 
 export const LibraryScreen = styled(Screen)`
+  position: relative;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: ${Sizes.headerHeight} 20px 0 20px;
+  flex-direction: column;
+  align-items: center;
+  padding: ${Sizes.headerHeight} 0;
 
   background-color: ${Colors.background};
+
+  &::before {
+    z-index: 10;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/background/bg_base_2.png');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    opacity: 0.15;
+  }
 `
 
 export const LibraryScreenWrapper = styled.div`
@@ -17,5 +33,5 @@ export const LibraryScreenWrapper = styled.div`
   width: 100%;
   max-width: 1000px;
   height: fit-content;
-  padding-top: 40px;
+  padding: 40px 20px 0 20px;
 `

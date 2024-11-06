@@ -9,7 +9,8 @@ export type RefDivType = RefObject<HTMLDivElement>
 // ==================== MOVIES
 
 export interface IMovie {
-  id: string
+  movie_id: string
+  user_id: string
   title: string
   description: string
   genre: string

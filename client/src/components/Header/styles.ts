@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Colors, Sizes } from '@/utils/styles/globals'
 
 export const Header = styled.header`
+  z-index: 100;
   position: fixed;
   top: 0;
   left: 0;
@@ -22,4 +23,5 @@ export const HeaderWrapper = styled.div`
   width: 100%;
   max-width: 1000px;
   height: 100%;
+  padding: 0 20px;
 `

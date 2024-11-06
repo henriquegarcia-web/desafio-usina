@@ -7,17 +7,27 @@ import { Modal, MovieCard, AddMovieForm } from '@/components'
 
 import { getHeaderTexts } from '@/utils/functions/getHeaderTexts'
 
+import { IMovie } from '@/@types/globals'
+
 interface IMoviesSection {
-  moviesData: any
+  moviesData: IMovie[]
   sectionId: 'saved_movies' | 'recommended_movies'
+  selectedMovie: IMovie | null
+  isAddMovieModalOpen: boolean
+  handleOpenModal: () => void
+  handleCloseModal: () => void
+  handleSelectMovie: (movie: IMovie) => void
 }
 
-const MoviesSection = ({ moviesData, sectionId }: IMoviesSection) => {
-  const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false)
-
-  const handleOpenModal = () => setIsAddMovieModalOpen(true)
-  const handleCloseModal = () => setIsAddMovieModalOpen(false)
-
+const MoviesSection = ({
+  moviesData,
+  sectionId,
+  selectedMovie,
+  isAddMovieModalOpen,
+  handleOpenModal,
+  handleCloseModal,
+  handleSelectMovie
+}: IMoviesSection) => {
   const headerTexts = getHeaderTexts(sectionId)
 
   return (
@@ -29,9 +39,18 @@ const MoviesSection = ({ moviesData, sectionId }: IMoviesSection) => {
         </S.SectionHeader>
         <S.SectionWrapper>
           <S.MoviesList>
-            {moviesData?.map((movie: any) => (
-              <MovieCard key={movie.movie_id} movie={movie} />
-            ))}
+            {moviesData?.map((movie: IMovie) => {
+              const isSelected = movie.movie_id === selectedMovie?.movie_id
+
+              return (
+                <MovieCard
+                  key={movie.movie_id}
+                  movie={movie}
+                  active={isSelected}
+                  onClick={() => handleSelectMovie(movie)}
+                />
+              )
+            })}
 
             {sectionId === 'saved_movies' && (
               <S.AddMovieCard onClick={handleOpenModal}>
