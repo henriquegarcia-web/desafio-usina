@@ -49,18 +49,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await loginService(credentials)
       const { token } = response
-      console.log('Received token:', token)
-      setToken(token)
-      localStorage.setItem('token', token)
       await verifyCurrentUser(token)
+
+      localStorage.setItem('token', token)
+      setToken(token)
       setIsUserLogged(true)
 
-      // alert
+      toast('Sucesso! Seja bem-vindo')
       return true
-    } catch (error) {
-      console.error('Login failed', error)
+    } catch (error: any) {
+      console.error('Falha ao realizar login', error)
 
-      // alert
+      toast(error.message)
       return false
     }
   }
@@ -73,18 +73,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const response = await registerService(userData)
       const { token } = response
-      console.log('Received token:', token)
-      setToken(token)
-      localStorage.setItem('token', token)
       await verifyCurrentUser(token)
+
+      localStorage.setItem('token', token)
+      setToken(token)
       setIsUserLogged(true)
 
-      // alert
+      toast('Sucesso! Seja bem-vindo')
       return true
-    } catch (error) {
-      console.error('Registration failed', error)
+    } catch (error: any) {
+      console.error('Falha ao realizar cadastro', error)
 
-      // alert
+      toast(error)
       return false
     }
   }
@@ -105,7 +105,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         name: response.name
       })
     } catch (error) {
-      console.error('Token verification failed', error)
+      console.error('Falha na verificação do Token', error)
       handleLogout()
     }
   }
@@ -138,7 +138,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 function useAuth(): IAuthContextData {
   const context = useContext(AuthContext)
-  if (!context) throw new Error('useAuth must be used within a AuthProvider')
+  if (!context)
+    throw new Error('useAuth precisa estar dentro de um AuthProvider')
   return context
 }
 
