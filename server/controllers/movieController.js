@@ -4,7 +4,7 @@ const movieController = {
   async getAllMovies(req, res) {
     try {
       const movies = await Movie.getAllMovies(req.params.userId)
-      res.json({ movies })
+      res.json(movies)
     } catch (error) {
       console.error('Erro ao obter todos os filmes:', error)
       res.status(500).json({
@@ -17,7 +17,7 @@ const movieController = {
   async getMovieById(req, res) {
     try {
       const movie = await Movie.getMovieById(req.params.id, req.params.userId)
-      res.json({ movie })
+      res.json(movie)
     } catch (error) {
       console.error('Erro ao obter filme por ID:', error)
       res.status(500).json({
@@ -38,7 +38,7 @@ const movieController = {
         year,
         duration
       )
-      res.json({ movie })
+      res.json(movie)
     } catch (error) {
       console.error('Erro ao criar filme:', error)
       res.status(500).json({
@@ -60,7 +60,7 @@ const movieController = {
         year,
         duration
       )
-      res.json({ movie })
+      res.json(movie)
     } catch (error) {
       console.error('Erro ao atualizar filme:', error)
       res.status(500).json({
@@ -74,7 +74,7 @@ const movieController = {
     const { userId } = req.params
     try {
       const movie = await Movie.deleteMovie(req.params.id, userId)
-      res.json({ movie })
+      res.json(movie)
     } catch (error) {
       console.error('Erro ao deletar filme:', error)
       res.status(500).json({
@@ -88,7 +88,7 @@ const movieController = {
     const { userId } = req.params
     try {
       const recommendedMovies = await Movie.getRecommendedMovies(userId)
-      res.json({ recommendedMovies })
+      res.json(recommendedMovies)
     } catch (error) {
       console.error('Erro ao obter filmes recomendados:', error)
       res.status(500).json({

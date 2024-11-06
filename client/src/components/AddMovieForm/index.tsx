@@ -11,8 +11,13 @@ import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 
+import { useCreateMovie } from '@/hooks/data/useMovie'
+import { useAuth } from '@/contexts/AuthProvider'
+
+import { IMovieForm } from '@/@types/globals'
+
 interface IAddMovieForm {
-  onSubmit: (data: IAddMovieFormData) => void
+  handleCloseModal: () => void
 }
 
 interface IAddMovieFormData {
@@ -31,7 +36,10 @@ const addMovieSchema = Yup.object().shape({
   movieDuration: Yup.number().required().min(0).max(999)
 })
 
-const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
+const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
+  const { user } = useAuth()
+  const { mutate: createMovie } = useCreateMovie()
+
   const { control, handleSubmit, setValue, formState } =
     useForm<IAddMovieFormData>({
       mode: 'all',
@@ -41,6 +49,23 @@ const AddMovieForm = ({ onSubmit }: IAddMovieForm) => {
 
   const handleSelectGenre = (genre: string) => {
     setValue('movieGenre', genre)
+  }
+
+  const onSubmit = (data: IMovieForm) => {
+    if (!user) return
+
+    createMovie({
+      userId: user.id.toString(),
+      movieData: {
+        title: data.movieTitle,
+        description: data.movieDescription,
+        genre: data.movieGenre,
+        year: data.movieReleaseYear,
+        duration: data.movieDuration
+      }
+    })
+
+    handleCloseModal()
   }
 
   return (

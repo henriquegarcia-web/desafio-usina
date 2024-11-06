@@ -5,6 +5,7 @@ interface IMovieCard {
 }
 
 const MovieCard = ({ movie }: IMovieCard) => {
+  console.log(movie)
   return <S.MovieCard></S.MovieCard>
 }
 
