@@ -5,7 +5,7 @@ const getAllMovies = async (userId: string) => {
     const response = await api.get(`/movies/user/${userId}`)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -14,7 +14,7 @@ const getMovieById = async (id: string) => {
     const response = await api.get(`/movies/${id}`)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -26,7 +26,7 @@ const createMovie = async (
     const response = await api.post(`/movies`, { userId, ...movieData })
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -43,7 +43,7 @@ const updateMovie = async (
     const response = await api.put(`/movies/${id}`, movieData)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -52,7 +52,7 @@ const deleteMovie = async (id: string) => {
     const response = await api.delete(`/movies/${id}`)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -61,7 +61,7 @@ const getRecommendedMovies = async (userId: string) => {
     const response = await api.get(`/movies/recommendations/${userId}`)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 

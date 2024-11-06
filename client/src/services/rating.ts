@@ -5,7 +5,7 @@ const getMovieRatings = async (movieId: string) => {
     const response = await api.get(`/ratings/${movieId}`)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -14,7 +14,7 @@ const addRating = async (movieId: string, rating: number) => {
     const response = await api.post(`/ratings/${movieId}`, { rating })
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 

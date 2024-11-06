@@ -10,10 +10,8 @@ const authController = {
       const existingUser = await AuthModel.findUserByUsername(username)
       if (existingUser) {
         return res.status(409).json({
-          error: {
-            code: 'USER_EXISTS',
-            message: 'Nome de usuário já está em uso.'
-          }
+          code: 'USER_EXISTS',
+          message: 'Nome de usuário já está em uso.'
         })
       }
 
@@ -30,10 +28,8 @@ const authController = {
     } catch (error) {
       console.error('Erro ao registrar usuário:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao registrar o usuário.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao registrar o usuário.'
       })
     }
   },
@@ -45,10 +41,8 @@ const authController = {
       const user = await AuthModel.findUserByEmail(email)
       if (!user || !(await bcrypt.compare(password, user.password_hash))) {
         return res.status(401).json({
-          error: {
-            code: 'INVALID_CREDENTIALS',
-            message: 'Credenciais inválidas.'
-          }
+          code: 'INVALID_CREDENTIALS',
+          message: 'Credenciais inválidas.'
         })
       }
 
@@ -62,10 +56,8 @@ const authController = {
     } catch (error) {
       console.error('Erro ao fazer login:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao fazer login.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao fazer login.'
       })
     }
   },
@@ -74,10 +66,8 @@ const authController = {
     const token = req.headers.authorization?.split(' ')[1]
     if (!token) {
       return res.status(401).json({
-        error: {
-          code: 'UNAUTHORIZED',
-          message: 'Não autorizado.'
-        }
+        code: 'UNAUTHORIZED',
+        message: 'Não autorizado.'
       })
     }
 
@@ -90,10 +80,8 @@ const authController = {
       })
     } catch (error) {
       res.status(401).json({
-        error: {
-          code: 'INVALID_TOKEN',
-          message: 'Token inválido.'
-        }
+        code: 'INVALID_TOKEN',
+        message: 'Token inválido.'
       })
     }
   }

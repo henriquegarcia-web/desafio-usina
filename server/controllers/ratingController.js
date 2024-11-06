@@ -5,14 +5,12 @@ const ratingController = {
     const { userId, movieId, rating, review } = req.body
     try {
       const response = await Rating.addRating(userId, movieId, rating, review)
-      res.json({ data: response })
+      res.json({ response })
     } catch (error) {
       console.error('Erro ao adicionar avaliação:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao adicionar avaliação.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao adicionar avaliação.'
       })
     }
   },
@@ -20,14 +18,12 @@ const ratingController = {
   async getRatingsByMovie(req, res) {
     try {
       const ratings = await Rating.getRatingsByMovie(req.params.movieId)
-      res.json({ data: ratings })
+      res.json({ ratings })
     } catch (error) {
       console.error('Erro ao obter avaliações:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao obter avaliações do filme.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao obter avaliações do filme.'
       })
     }
   }

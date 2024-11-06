@@ -4,14 +4,12 @@ const movieController = {
   async getAllMovies(req, res) {
     try {
       const movies = await Movie.getAllMovies(req.params.userId)
-      res.json({ data: movies })
+      res.json({ movies })
     } catch (error) {
       console.error('Erro ao obter todos os filmes:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao obter lista de filmes.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao obter lista de filmes.'
       })
     }
   },
@@ -19,14 +17,12 @@ const movieController = {
   async getMovieById(req, res) {
     try {
       const movie = await Movie.getMovieById(req.params.id)
-      res.json({ data: movie })
+      res.json({ movie })
     } catch (error) {
       console.error('Erro ao obter filme por ID:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao obter detalhes do filme.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao obter detalhes do filme.'
       })
     }
   },
@@ -35,14 +31,12 @@ const movieController = {
     const { title, genre, year, duration } = req.body
     try {
       const movie = await Movie.createMovie(title, genre, year, duration)
-      res.json({ data: movie })
+      res.json({ movie })
     } catch (error) {
       console.error('Erro ao criar filme:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao criar o filme.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao criar o filme.'
       })
     }
   },
@@ -57,14 +51,12 @@ const movieController = {
         year,
         duration
       )
-      res.json({ data: movie })
+      res.json({ movie })
     } catch (error) {
       console.error('Erro ao atualizar filme:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao atualizar o filme.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao atualizar o filme.'
       })
     }
   },
@@ -72,14 +64,12 @@ const movieController = {
   async deleteMovie(req, res) {
     try {
       const movie = await Movie.deleteMovie(req.params.id)
-      res.json({ data: movie })
+      res.json({ movie })
     } catch (error) {
       console.error('Erro ao deletar filme:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao deletar o filme.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao deletar o filme.'
       })
     }
   },
@@ -88,14 +78,12 @@ const movieController = {
     const { userId } = req.params
     try {
       const recommendedMovies = await Movie.getRecommendedMovies(userId)
-      res.json({ data: recommendedMovies })
+      res.json({ recommendedMovies })
     } catch (error) {
       console.error('Erro ao obter filmes recomendados:', error)
       res.status(500).json({
-        error: {
-          code: 'INTERNAL_ERROR',
-          message: 'Erro ao obter filmes recomendados.'
-        }
+        code: 'INTERNAL_ERROR',
+        message: 'Erro ao obter filmes recomendados.'
       })
     }
   }

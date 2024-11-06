@@ -9,7 +9,7 @@ const register = async (userData: {
     const response = await api.post('/auth/register', userData)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -18,7 +18,7 @@ const login = async (credentials: { email: string; password: string }) => {
     const response = await api.post('/auth/login', credentials)
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
@@ -29,7 +29,7 @@ const verifyToken = async (token: string) => {
     })
     return response.data
   } catch (error: any) {
-    throw error.response?.data.error || error
+    throw error.response?.data || error
   }
 }
 
