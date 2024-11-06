@@ -20,7 +20,13 @@ const getMovieById = async (id: string) => {
 
 const createMovie = async (
   userId: string,
-  movieData: { title: string; genre: string; year: number; duration: number }
+  movieData: {
+    title: string
+    description: string
+    genre: string
+    year: number
+    duration: number
+  }
 ) => {
   try {
     const response = await api.post(`/movies`, { userId, ...movieData })
@@ -32,24 +38,26 @@ const createMovie = async (
 
 const updateMovie = async (
   id: string,
+  userId: string,
   movieData: {
     title?: string
+    description?: string
     genre?: string
     year?: number
     duration?: number
   }
 ) => {
   try {
-    const response = await api.put(`/movies/${id}`, movieData)
+    const response = await api.put(`/movies/${id}/user/${userId}`, movieData)
     return response.data
   } catch (error: any) {
     throw error.response?.data || error
   }
 }
 
-const deleteMovie = async (id: string) => {
+const deleteMovie = async (id: string, userId: string) => {
   try {
-    const response = await api.delete(`/movies/${id}`)
+    const response = await api.delete(`/movies/${id}/user/${userId}`)
     return response.data
   } catch (error: any) {
     throw error.response?.data || error

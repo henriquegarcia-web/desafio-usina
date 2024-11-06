@@ -16,7 +16,7 @@ export type RefDivType = RefObject<HTMLDivElement>
 //   movieDuration: number
 // }
 
-export interface IMovie {
+export interface IMovieForm {
   movieTitle: string
   movieDescription: string
   movieGenre: string

@@ -15,18 +15,23 @@
    > Visite `http://localhost:5000` para visualizar o servidor.
 
    CREATE TABLE users (
-   id SERIAL PRIMARY KEY,
-   username VARCHAR(50) NOT NULL,
-   email VARCHAR(100) NOT NULL UNIQUE
+   user_id SERIAL PRIMARY KEY,
+   username VARCHAR(50) UNIQUE NOT NULL,
+   email VARCHAR(100) UNIQUE NOT NULL,
+   password_hash VARCHAR(255) NOT NULL,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
    );
 
 CREATE TABLE movies (
 id SERIAL PRIMARY KEY,
 user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 title VARCHAR(255) NOT NULL,
+description VARCHAR(255) NOT NULL,
 genre VARCHAR(100) NOT NULL,
 year INT CHECK (year >= 1888) NOT NULL,
-duration INT CHECK (duration > 0) NOT NULL
+duration INT CHECK (duration > 0) NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 );
 
 CREATE TABLE ratings (
@@ -34,7 +39,9 @@ id SERIAL PRIMARY KEY,
 user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
 movie_id INT NOT NULL REFERENCES movies(id) ON DELETE CASCADE,
 rating INT CHECK (rating >= 1 AND rating <= 5) NOT NULL,
-review TEXT
+review TEXT,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 );
 
 -- Índices

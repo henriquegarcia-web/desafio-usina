@@ -16,7 +16,7 @@ const movieController = {
 
   async getMovieById(req, res) {
     try {
-      const movie = await Movie.getMovieById(req.params.id)
+      const movie = await Movie.getMovieById(req.params.id, req.params.userId)
       res.json({ movie })
     } catch (error) {
       console.error('Erro ao obter filme por ID:', error)
@@ -28,9 +28,16 @@ const movieController = {
   },
 
   async createMovie(req, res) {
-    const { title, genre, year, duration } = req.body
+    const { userId, title, description, genre, year, duration } = req.body
     try {
-      const movie = await Movie.createMovie(title, genre, year, duration)
+      const movie = await Movie.createMovie(
+        userId,
+        title,
+        description,
+        genre,
+        year,
+        duration
+      )
       res.json({ movie })
     } catch (error) {
       console.error('Erro ao criar filme:', error)
@@ -42,11 +49,13 @@ const movieController = {
   },
 
   async updateMovie(req, res) {
-    const { title, genre, year, duration } = req.body
+    const { userId, title, description, genre, year, duration } = req.body
     try {
       const movie = await Movie.updateMovie(
         req.params.id,
+        userId,
         title,
+        description,
         genre,
         year,
         duration
@@ -62,8 +71,9 @@ const movieController = {
   },
 
   async deleteMovie(req, res) {
+    const { userId } = req.params
     try {
-      const movie = await Movie.deleteMovie(req.params.id)
+      const movie = await Movie.deleteMovie(req.params.id, userId)
       res.json({ movie })
     } catch (error) {
       console.error('Erro ao deletar filme:', error)

@@ -29,6 +29,7 @@ const useCreateMovie = () => {
       userId: string
       movieData: {
         title: string
+        description: string
         genre: string
         year: number
         duration: number
@@ -41,19 +42,22 @@ const useUpdateMovie = () => {
   return useMutation({
     mutationFn: async (data: {
       id: string
+      userId: string
       movieData: {
         title?: string
+        description?: string
         genre?: string
         year?: number
         duration?: number
       }
-    }) => updateMovie(data.id, data.movieData)
+    }) => updateMovie(data.id, data.userId, data.movieData)
   })
 }
 
 const useDeleteMovie = () => {
   return useMutation({
-    mutationFn: async (id: string) => deleteMovie(id)
+    mutationFn: async (data: { id: string; userId: string }) =>
+      deleteMovie(data.id, data.userId)
   })
 }
 
