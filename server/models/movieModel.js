@@ -5,7 +5,10 @@ const Movie = {
     userId,
     { searchTerm, genre, year, minDuration, maxDuration }
   ) {
-    let query = `SELECT * FROM movies WHERE user_id = $1`
+    let query = `
+      SELECT * FROM movies 
+      WHERE user_id = $1 OR user_id IS DISTINCT FROM $1
+    `
     const queryParams = [userId]
     let filterIndex = 2
 
@@ -78,28 +81,14 @@ const Movie = {
   async getRecommendedMovies(userId) {
     const query = `
       SELECT m.movie_id, m.title, m.genre, m.year
-      FROM ratings r
-      JOIN movies m ON m.movie_id = r.movie_id
-      WHERE r.user_id IN (
-          SELECT user_id
-          FROM ratings
-          WHERE movie_id IN (
-              SELECT movie_id
-              FROM ratings
-              WHERE user_id = $1
-              AND rating >= 4
-          ) AND user_id != $1
-      )
-      AND m.movie_id NOT IN (
-          SELECT movie_id
-          FROM ratings
-          WHERE user_id = $1
-      )
-      AND m.user_id != $1
+      FROM movies m
+      LEFT JOIN ratings r ON m.movie_id = r.movie_id
+      WHERE m.user_id IS DISTINCT FROM $1
       GROUP BY m.movie_id, m.title, m.genre, m.year
       ORDER BY AVG(r.rating) DESC
       LIMIT 10;
     `
+
     const result = await pool.query(query, [userId])
     return result.rows
   }

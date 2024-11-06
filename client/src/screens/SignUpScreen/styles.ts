@@ -6,7 +6,7 @@ export const SignUpScreen = styled(Screen)`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: ${Sizes.headerHeight} 20px 0 20px;
+  padding: 20px;
 
   background-color: ${Colors.background};
 `

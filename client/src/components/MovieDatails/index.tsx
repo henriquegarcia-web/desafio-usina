@@ -9,13 +9,13 @@ import { IMovie } from '@/@types/globals'
 interface IMovieDatails {
   selectedMovie: IMovie
   handleEditMovie: () => void
-  handleCloseView: () => void
+  handleDeleteMovie: () => void
 }
 
 const MovieDatails = ({
   selectedMovie,
   handleEditMovie,
-  handleCloseView
+  handleDeleteMovie
 }: IMovieDatails) => {
   return (
     <S.MovieDatails>
@@ -34,13 +34,13 @@ const MovieDatails = ({
             type="button"
             mode="default"
             label="Editar"
-            onClick={() => handleEditMovie}
+            onClick={handleEditMovie}
           />
           <Button
             type="button"
             mode="outlined"
-            label="Fechar"
-            onClick={() => {}}
+            label="Deletar"
+            onClick={handleDeleteMovie}
           />
         </S.MovieCtas>
       </S.MovieDatailsWrapper>

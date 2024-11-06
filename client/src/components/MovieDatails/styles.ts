@@ -17,7 +17,7 @@ export const MovieDatailsWrapper = styled.div`
   width: 100%;
   max-width: 1000px;
   height: fit-content;
-  padding: 120px 20px;
+  padding: 100px 20px;
 `
 
 export const MovieTitle = styled.h2`

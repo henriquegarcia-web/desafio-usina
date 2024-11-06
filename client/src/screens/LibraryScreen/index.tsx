@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import * as S from './styles'
 
 import { Header, MovieDatails, MoviesSection } from '@/components'
 
-import { useGetAllMovies, useGetRecommendedMovies } from '@/hooks/data/useMovie'
+import {
+  useDeleteMovie,
+  useGetAllMovies,
+  useGetRecommendedMovies
+} from '@/hooks/data/useMovie'
 import { useAuth } from '@/contexts/AuthProvider'
 
 import { IMovie } from '@/@types/globals'
@@ -13,20 +17,34 @@ interface ILibraryScreen {}
 
 const LibraryScreen = ({}: ILibraryScreen) => {
   const { user } = useAuth()
+  const { mutate: deleteMovie } = useDeleteMovie()
 
   const savedMovies = useGetAllMovies(user ? user.id : '')
-  const recommendedMovies = useGetAllMovies(user ? user.id : '')
+  const recommendedMovies = useGetRecommendedMovies(user ? user.id : '')
 
   const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
-  const handleSelectMovie = (movie: IMovie | null) => setSelectedMovie(movie)
-
-  const handleOpenModal = (movie?: IMovie) => {
-    if (!!movie) setSelectedMovie(movie)
+  const handleOpenModal = () => setIsAddMovieModalOpen(true)
+  const handleOpenEditModal = (movie: IMovie) => {
+    setSelectedMovie(movie)
     setIsAddMovieModalOpen(true)
   }
   const handleCloseModal = () => setIsAddMovieModalOpen(false)
+
+  const handleSelectMovie = (movie: IMovie | null) => setSelectedMovie(movie)
+
+  const handleDeleteMovie = useCallback(() => {
+    if (!selectedMovie) return
+
+    deleteMovie({
+      id: selectedMovie.movie_id,
+      userId: selectedMovie.user_id
+    })
+
+    setSelectedMovie(null)
+    handleCloseModal()
+  }, [selectedMovie])
 
   const isLoading = savedMovies.isLoading || recommendedMovies.isLoading
   const error = savedMovies.error || recommendedMovies.error
@@ -41,8 +59,8 @@ const LibraryScreen = ({}: ILibraryScreen) => {
       {!!selectedMovie && (
         <MovieDatails
           selectedMovie={selectedMovie}
-          handleEditMovie={() => handleOpenModal(selectedMovie)}
-          handleCloseView={() => handleSelectMovie(null)}
+          handleEditMovie={() => handleOpenEditModal(selectedMovie)}
+          handleDeleteMovie={handleDeleteMovie}
         />
       )}
 

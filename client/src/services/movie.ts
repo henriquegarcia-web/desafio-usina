@@ -43,16 +43,17 @@ const updateMovie = async (
   movieData: Partial<IMovieInput>
 ): Promise<IMovie> => {
   try {
-    const response = await api.put(`/movies/${id}/user/${userId}`, movieData)
+    const response = await api.put(`/movies/${id}`, { userId, ...movieData })
     return response.data
   } catch (error: any) {
     throw error.response?.data || error
   }
 }
 
-const deleteMovie = async (id: string, userId: string): Promise<void> => {
+const deleteMovie = async (id: string, userId: string): Promise<IMovie> => {
   try {
-    await api.delete(`/movies/${id}/user/${userId}`)
+    const response = await api.delete(`/movies/${id}/user/${userId}`)
+    return response.data
   } catch (error: any) {
     throw error.response?.data || error
   }

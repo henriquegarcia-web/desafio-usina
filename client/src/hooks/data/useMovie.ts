@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   getAllMovies,
   getMovieById,
@@ -7,7 +7,6 @@ import {
   deleteMovie,
   getRecommendedMovies
 } from '@/services/movie'
-
 import { IMovie, IMovieFilter } from '@/@types/globals'
 
 const useGetAllMovies = (userId: string, filters?: IMovieFilter) => {
@@ -26,6 +25,8 @@ const useGetMovieById = (id: string) => {
 }
 
 const useCreateMovie = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: async (data: {
       userId: string
@@ -36,11 +37,16 @@ const useCreateMovie = () => {
         year: number
         duration: number
       }
-    }) => createMovie(data.userId, data.movieData)
+    }) => createMovie(data.userId, data.movieData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['movies'] })
+    }
   })
 }
 
 const useUpdateMovie = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: async (data: {
       id: string
@@ -52,14 +58,23 @@ const useUpdateMovie = () => {
         year?: number
         duration?: number
       }
-    }) => updateMovie(data.id, data.userId, data.movieData)
+    }) => updateMovie(data.id, data.userId, data.movieData),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['movies'] })
+      queryClient.invalidateQueries({ queryKey: ['movie', data.movie_id] })
+    }
   })
 }
 
 const useDeleteMovie = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: async (data: { id: string; userId: string }) =>
-      deleteMovie(data.id, data.userId)
+      deleteMovie(data.id, data.userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['movies'] })
+    }
   })
 }
 
