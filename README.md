@@ -1,52 +1,35 @@
-# 🎥 Biblioteca de Filmes com Recomendações e Avaliações
+# Biblioteca de Filmes | Teste Técnico Usina
 
-## Descrição do Projeto
+> Desenvolvido por: **[Henrique Garcia](https://www.linkedin.com/in/henrique-garcia-dev/)**  
+> Data de início: **02/11/2024**  
+> Data de término: **07/11/2024**
 
-Este é um desafio de desenvolvimento onde você criará uma **Biblioteca de Filmes**. O objetivo é que usuários possam adicionar filmes que já assistiram, avaliar esses filmes e receber recomendações baseadas nas avaliações de outros usuários. O projeto combina funcionalidades de CRUD com recomendações, sendo ideal para demonstrar habilidades em back-end, front-end e banco de dados.
+## Overview
+
+Este é um sistema de Biblioteca de Filmes, desenvolvido como parte de um desafio técnico. Os usuários podem adicionar filmes, avaliar, e obter recomendações com base em avaliações de outros usuários. O projeto demonstra habilidades tanto em back-end quanto em front-end, incluindo integração com PostgreSQL.
 
 ## Funcionalidades
 
-- **CRUD de Filmes**: Adicionar, editar, listar e remover filmes na biblioteca.
-- **Avaliações de Filmes**: Usuários podem avaliar filmes de 1 a 5 estrelas.
-- **Recomendações**: Recomendações baseadas em avaliações semelhantes feitas por outros usuários.
-- **Autenticação de Usuários**: Usuários devem se cadastrar e fazer login para acessar e avaliar os filmes.
-- **Pesquisa e Filtragem**: Usuários podem pesquisar por filmes específicos e filtrar por gênero, ano, etc.
+- **CRUD de Filmes:** Adicionar, editar, listar e remover filmes.
+- **Avaliações de Filmes:** Avaliar filmes de 1 a 5 estrelas.
+- **Recomendações:** Recomendações de filmes baseadas em avaliações semelhantes de outros usuários.
+- **Autenticação JWT** para acesso seguro.
+- **Filtros para Busca:** Busca por gênero, ano, e outros critérios.
 
-## Tecnologias Recomendadas
+## Tecnologias e Bibliotecas Utilizadas
 
-- **Backend**: Node.js com Express
-- **Banco de Dados**: PostgreSQL
-- **Frontend**: React ou Angular
-- **Autenticação**: JWT para segurança
+- **Back-end:** Node.js, Express, JWT, PostgreSQL
+- **Front-end:** React, TypeScript, Styled-Components
+- **Outras:** ReactQuery, Docker
 
-## Requisitos
+## Instalação e Uso
 
-1. **Cadastro e Login de Usuários** com autenticação por JWT.
-2. **CRUD de Filmes** com os campos:
-   - Título do filme
-   - Descrição
-   - Gênero
-   - Ano de lançamento
-   - Duração
-3. **CRUD de Avaliações** com os campos:
-   - Nota de 1 a 5 estrelas
-   - Comentário (opcional)
-4. **Recomendações**: Listar filmes que foram bem avaliados por outros usuários com perfis de avaliação semelhantes.
-5. **Pesquisa e Filtragem**: Filtros para gêneros, ano e outros critérios.
+1. Clone o repositório:
 
-## Critérios de Avaliação
+   `git clone https://github.com/henriquegarcia-web/chat-enterness-test.git`
 
-- **Funcionalidade Completa**: Todas as funcionalidades devem estar presentes e funcionando conforme descrito.
-- **Organização do Código**: Separação clara entre camadas (controllers, models, serviços).
-- **Qualidade do Código**: Código limpo, bem documentado e fácil de entender.
-- **Documentação**: O `README.md` deve incluir uma explicação clara de como rodar o projeto.
-- **Usabilidade e Design**: Interface intuitiva e agradável para o usuário.
+2. Navegue até o diretório do projeto:
 
-## Instruções para Configuração
+   `cd chat-enterness-test`
 
-1. Clone este repositório:
-   ```bash
-   git clone https://github.com/hallslima/desafio-usina.git
-   cd desafio-usina
-
-2. Para entregar o desafio, mande um pull request com uma branch no seu nome.
+3. Demais configurações estão indicadas nos READMEs das pastas 'client' e 'server'.

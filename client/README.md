@@ -8,7 +8,7 @@
 
 2. Crie um arquivo .env na raiz da pasta 'client' com os dados:
 
-   `VITE_SERVER_BASE_URL=http://localhost:5000` <br/>
+   `VITE_SERVER_BASE_URL=http://localhost:5000/api` <br/>
 
 3. Inicie o servidor de desenvolvimento:
 
@@ -16,4 +16,4 @@
 
 4. Abra seu navegador da web:
 
-   > Visite `http://localhost:3000` para visualizar a aplicação.
+   > Visite `http://localhost:5173` para visualizar a aplicação.
