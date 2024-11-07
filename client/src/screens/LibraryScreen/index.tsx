@@ -23,6 +23,7 @@ const LibraryScreen = ({}: ILibraryScreen) => {
   const recommendedMovies = useGetRecommendedMovies(user ? user.id : '')
 
   const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false)
+  const [isAddRatingModalOpen, setIsAddRatingModalOpen] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
   const handleOpenModal = () => setIsAddMovieModalOpen(true)
@@ -31,6 +32,9 @@ const LibraryScreen = ({}: ILibraryScreen) => {
     setIsAddMovieModalOpen(true)
   }
   const handleCloseModal = () => setIsAddMovieModalOpen(false)
+
+  const handleOpenRatingModal = () => setIsAddRatingModalOpen(true)
+  const handleCloseRatingModal = () => setIsAddRatingModalOpen(false)
 
   const handleSelectMovie = (movie: IMovie | null) => setSelectedMovie(movie)
 
@@ -59,6 +63,9 @@ const LibraryScreen = ({}: ILibraryScreen) => {
       {!!selectedMovie && (
         <MovieDatails
           selectedMovie={selectedMovie}
+          isAddRatingModalOpen={isAddRatingModalOpen}
+          handleOpenRatingModal={handleOpenRatingModal}
+          handleCloseRatingModal={handleCloseRatingModal}
           handleEditMovie={() => handleOpenEditModal(selectedMovie)}
           handleDeleteMovie={handleDeleteMovie}
         />

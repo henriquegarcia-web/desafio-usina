@@ -40,3 +40,20 @@ export interface IMovieFilter {
   year?: number
   duration?: { min: number; max: number }
 }
+
+// ==================== RATING
+
+export interface IRatingInput {
+  userId: string
+  movieId: string
+  rating: number
+  review?: string
+}
+
+export interface IRating {
+  userId: string
+  movieId: string
+  rating: number
+  review?: string
+  createdAt: string
+}

@@ -13,6 +13,8 @@ import Button from './Button'
 import AddMovieForm from './AddMovieForm'
 import GenreDropdown from './GenreDropdown'
 import MovieDatails from './MovieDatails'
+import AddRatingForm from './AddRatingForm'
+import Rating from './Rating'
 
 export {
   Header,
@@ -29,5 +31,7 @@ export {
   Button,
   AddMovieForm,
   GenreDropdown,
-  MovieDatails
+  MovieDatails,
+  AddRatingForm,
+  Rating
 }

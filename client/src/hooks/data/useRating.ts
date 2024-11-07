@@ -1,17 +1,23 @@
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getMovieRatings, addRating } from '@/services/rating'
+
+import { IRatingInput } from '@/@types/globals'
 
 const useGetMovieRatings = (movieId: string) => {
   return useQuery({
     queryKey: ['ratings', movieId],
-    queryFn: async () => getMovieRatings(movieId)
+    queryFn: () => getMovieRatings(movieId)
   })
 }
 
 const useAddRating = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
-    mutationFn: async (data: { movieId: string; rating: number }) =>
-      addRating(data.movieId, data.rating)
+    mutationFn: (ratingData: IRatingInput) => addRating(ratingData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['movies'] })
+    }
   })
 }
 
