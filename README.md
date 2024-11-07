@@ -26,10 +26,14 @@ Este é um sistema de Biblioteca de Filmes, desenvolvido como parte de um desafi
 
 1. Clone o repositório:
 
-   `git clone https://github.com/henriquegarcia-web/chat-enterness-test.git`
+   `git clone https://github.com/henriquegarcia-web/desafio-usina.git`
 
 2. Navegue até o diretório do projeto:
 
-   `cd chat-enterness-test`
+   `cd desafio-usina`
 
-3. Demais configurações estão indicadas nos READMEs das pastas 'client' e 'server'.
+3. Navegue até a branch correta:
+
+   `cd henrique-garcia`
+
+4. Demais configurações estão indicadas nos READMEs das pastas 'client' e 'server'.
