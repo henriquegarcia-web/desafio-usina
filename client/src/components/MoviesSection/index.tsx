@@ -66,7 +66,10 @@ const MoviesSection = ({
         isOpen={isAddMovieModalOpen}
         handleClose={handleCloseModal}
       >
-        <AddMovieForm handleCloseModal={handleCloseModal} />
+        <AddMovieForm
+          selectedMovie={selectedMovie}
+          handleCloseModal={handleCloseModal}
+        />
       </Modal>
     </>
   )

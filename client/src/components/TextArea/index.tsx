@@ -9,7 +9,13 @@ interface ITextArea {
 const TextArea = forwardRef<HTMLTextAreaElement, ITextArea>(
   ({ placeholder, value = '', ...props }, ref) => {
     return (
-      <S.TextArea ref={ref} rows={5} placeholder={placeholder} {...props} />
+      <S.TextArea
+        ref={ref}
+        rows={5}
+        placeholder={placeholder}
+        value={value}
+        {...props}
+      />
     )
   }
 )

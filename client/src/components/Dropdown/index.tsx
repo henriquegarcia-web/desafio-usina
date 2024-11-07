@@ -1,4 +1,4 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 
 import * as S from './styles'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
@@ -12,12 +12,21 @@ interface IDropdown {
   placeholder: string
   data: DropdownItem[]
   onSelect: (value: string) => void
+  defaultSelected?: string
 }
 
 const Dropdown = forwardRef<HTMLDivElement, IDropdown>(
-  ({ placeholder, data, onSelect, ...props }, ref) => {
+  ({ placeholder, data, onSelect, defaultSelected, ...props }, ref) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    const [selectedData, setSelectedData] = useState<string | null>(null)
+    const [selectedData, setSelectedData] = useState<string | null>(
+      defaultSelected || null
+    )
+
+    useEffect(() => {
+      if (defaultSelected) {
+        setSelectedData(defaultSelected)
+      }
+    }, [defaultSelected])
 
     const handleToggleDropdown = () => {
       setIsDropdownOpen(!isDropdownOpen)

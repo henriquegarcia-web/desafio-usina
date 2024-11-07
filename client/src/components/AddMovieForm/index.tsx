@@ -9,14 +9,15 @@ import {
 
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, useWatch } from 'react-hook-form'
 
-import { useCreateMovie } from '@/hooks/data/useMovie'
+import { useCreateMovie, useUpdateMovie } from '@/hooks/data/useMovie'
 import { useAuth } from '@/contexts/AuthProvider'
 
-import { IMovieForm } from '@/@types/globals'
+import { IMovie, IMovieForm } from '@/@types/globals'
 
 interface IAddMovieForm {
+  selectedMovie: IMovie | null
   handleCloseModal: () => void
 }
 
@@ -29,23 +30,52 @@ interface IAddMovieFormData {
 }
 
 const addMovieSchema = Yup.object().shape({
-  movieTitle: Yup.string().required(),
-  movieDescription: Yup.string().required(),
-  movieGenre: Yup.string().required(),
-  movieReleaseYear: Yup.number().required().min(0).max(9999),
-  movieDuration: Yup.number().required().min(0).max(999)
+  movieTitle: Yup.string()
+    .required('Título obrigatório.')
+    .max(255, 'Máx. 255 caracteres.'),
+  movieDescription: Yup.string()
+    .required('Descrição obrigatória.')
+    .max(1000, 'Máx. 1000 caracteres.'),
+  movieGenre: Yup.string().required('Gênero obrigatório.'),
+  movieReleaseYear: Yup.number()
+    .required('Ano obrigatório.')
+    .min(1888, 'Ano mínimo: 1888.')
+    .max(2030, 'Ano máximo: 2030.'),
+  movieDuration: Yup.number()
+    .required('Duração obrigatória.')
+    .min(1, 'Mín. 1 minuto.')
+    .max(999, 'Máx. 999 minutos.')
 })
 
-const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
+const AddMovieForm = ({ selectedMovie, handleCloseModal }: IAddMovieForm) => {
   const { user } = useAuth()
   const { mutate: createMovie } = useCreateMovie()
+  const { mutate: updateMovie } = useUpdateMovie()
 
   const { control, handleSubmit, setValue, formState } =
     useForm<IAddMovieFormData>({
       mode: 'all',
-      resolver: yupResolver(addMovieSchema)
+      resolver: yupResolver(addMovieSchema),
+      defaultValues: selectedMovie
+        ? {
+            movieTitle: selectedMovie.title,
+            movieDescription: selectedMovie.description,
+            movieGenre: selectedMovie.genre,
+            movieReleaseYear: selectedMovie.year,
+            movieDuration: selectedMovie.duration
+          }
+        : undefined
     })
   const { isValid } = formState
+
+  const formData = useWatch({ control })
+  const isUnchanged = selectedMovie
+    ? formData.movieTitle === selectedMovie.title &&
+      formData.movieDescription === selectedMovie.description &&
+      formData.movieGenre === selectedMovie.genre &&
+      formData.movieReleaseYear === selectedMovie.year &&
+      formData.movieDuration === selectedMovie.duration
+    : false
 
   const handleSelectGenre = (genre: string) => {
     setValue('movieGenre', genre)
@@ -54,16 +84,30 @@ const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
   const onSubmit = (data: IMovieForm) => {
     if (!user) return
 
-    createMovie({
-      userId: user.id.toString(),
-      movieData: {
-        title: data.movieTitle,
-        description: data.movieDescription,
-        genre: data.movieGenre,
-        year: data.movieReleaseYear,
-        duration: data.movieDuration
-      }
-    })
+    if (!selectedMovie) {
+      createMovie({
+        userId: user.id.toString(),
+        movieData: {
+          title: data.movieTitle,
+          description: data.movieDescription,
+          genre: data.movieGenre,
+          year: data.movieReleaseYear,
+          duration: data.movieDuration
+        }
+      })
+    } else {
+      updateMovie({
+        id: selectedMovie.movie_id,
+        userId: selectedMovie.user_id,
+        movieData: {
+          title: data.movieTitle,
+          description: data.movieDescription,
+          genre: data.movieGenre,
+          year: data.movieReleaseYear,
+          duration: data.movieDuration
+        }
+      })
+    }
 
     handleCloseModal()
   }
@@ -77,7 +121,6 @@ const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
             <Controller
               name="movieTitle"
               control={control}
-              rules={{ required: 'Este campo é obrigatório' }}
               render={({ field }) => <SearchTmdb {...field} />}
             />
           </S.FormInput>
@@ -105,9 +148,12 @@ const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
         <Controller
           name="movieGenre"
           control={control}
-          rules={{ required: 'Este campo é obrigatório' }}
           render={({ field }) => (
-            <GenreDropdown ref={field.ref} onSelectGenre={handleSelectGenre} />
+            <GenreDropdown
+              ref={field.ref}
+              onSelectGenre={handleSelectGenre}
+              selectedGenre={selectedMovie?.genre}
+            />
           )}
         />
       </S.FormInput>
@@ -118,7 +164,6 @@ const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
           <Controller
             name="movieReleaseYear"
             control={control}
-            rules={{ required: 'Este campo é obrigatório' }}
             render={({ field, fieldState }) => (
               <Input
                 {...field}
@@ -141,7 +186,6 @@ const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
           <Controller
             name="movieDuration"
             control={control}
-            rules={{ required: 'Este campo é obrigatório' }}
             render={({ field, fieldState }) => (
               <Input
                 {...field}
@@ -161,7 +205,11 @@ const AddMovieForm = ({ handleCloseModal }: IAddMovieForm) => {
       </S.FormInputsWrapper>
 
       <S.FormFooter>
-        <Button type="submit" label="Adicionar" disabled={!isValid} />
+        <Button
+          type="submit"
+          label={!!selectedMovie ? 'Salvar' : 'Adicionar'}
+          disabled={!isValid || isUnchanged}
+        />
       </S.FormFooter>
     </S.SaveMovieForm>
   )

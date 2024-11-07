@@ -25,6 +25,7 @@ const SignInScreen = () => {
 
   const { handleLogin } = useAuth()
   const { control, handleSubmit, formState } = useForm<ISignInFormData>({
+    mode: 'onBlur',
     resolver: yupResolver(signInSchema)
   })
   const { errors, isSubmitting, isValid } = formState

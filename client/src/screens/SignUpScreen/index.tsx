@@ -31,6 +31,7 @@ const SignUpScreen = () => {
 
   const { handleRegister } = useAuth()
   const { control, handleSubmit, formState } = useForm<ISignUpFormData>({
+    mode: 'all',
     resolver: yupResolver(signUpSchema)
   })
   const { errors, isSubmitting, isValid } = formState
